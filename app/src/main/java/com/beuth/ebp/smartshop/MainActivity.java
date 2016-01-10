@@ -38,9 +38,13 @@ public class MainActivity extends AppCompatActivity {
         listAdapter.add( "Haumea" );
         listAdapter.add( "Makemake" );
         listAdapter.add( "Eris" );
+        listAdapter.add( "gfgf" );
+        listAdapter.add( "bbbb" );
+        listAdapter.add( "cccc" );
+        listAdapter.add( "hk" );
         listAdapter.add( "Eris" );
-        listAdapter.add( "Eris" );
-        listAdapter.add( "Eris" );listAdapter.add( "Eris" );listAdapter.add( "Eris" );listAdapter.add( "Eris" );listAdapter.add( "Eris" );
+        listAdapter.add( "kjk" );
+        listAdapter.add( "nbn" );
 
 
         // Set the ArrayAdapter as the ListView's adapter.
