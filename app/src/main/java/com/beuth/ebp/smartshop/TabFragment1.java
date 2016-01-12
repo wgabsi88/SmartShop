@@ -1,6 +1,7 @@
 package com.beuth.ebp.smartshop;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.LayoutInflater;
@@ -8,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -55,6 +55,12 @@ import java.util.Arrays;
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position,long id) {
-            Toast.makeText(getActivity(), "Item: " + position, Toast.LENGTH_SHORT).show();
+            Intent inent = new Intent(getActivity(), Produkt_detail.class);
+            String aaa = ""+(position+1);
+
+            inent.putExtra("id", aaa);
+
+            getActivity().startActivity(inent);
+
         }
     }
