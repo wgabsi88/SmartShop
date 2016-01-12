@@ -1,54 +1,51 @@
 package com.beuth.ebp.smartshop;
 
 import android.os.Bundle;
+import android.support.design.widget.TabLayout;
+import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
+import android.support.v7.widget.Toolbar;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+
+
 
 public class MainActivity extends AppCompatActivity {
-    private ListView mainListView ;
-    private ArrayAdapter<String> listAdapter ;
 
-    /** Called when the activity is first created. */
     @Override
-    public void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        // Find the ListView resource.
-        mainListView = (ListView) findViewById( R.id.mainListView );
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
+        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
 
-        // Create and populate a List of planet names.
-        String[] planets = new String[]{"Mercury", "Venus", "Earth", "Mars",
-                "Jupiter", "Saturn", "Uranus", "Neptune"};
-        ArrayList<String> planetList = new ArrayList<String>();
-        planetList.addAll(Arrays.asList(planets));
+        // tabLayout.setTabGravity(TabLayout.GRAVITY_FILL);
 
-        // Create ArrayAdapter using the planet list.
-        listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow, planetList);
+        final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
+        final PagerAdapter adapter = new PagerAdapter
+                (getSupportFragmentManager(), tabLayout.getTabCount());
+        viewPager.setAdapter(adapter);
+        viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
+        tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                viewPager.setCurrentItem(tab.getPosition());
+            }
 
-        // Add more planets. If you passed a String[] instead of a List<String>
-        // into the ArrayAdapter constructor, you must not add more items.
-        // Otherwise an exception will occur.
-        listAdapter.add( "Ceres" );
-        listAdapter.add( "Pluto" );
-        listAdapter.add( "Haumea" );
-        listAdapter.add( "Makemake" );
-        listAdapter.add( "Eris" );
-        listAdapter.add( "gfgf" );
-        listAdapter.add( "bbbb" );
-        listAdapter.add( "cccc" );
-        listAdapter.add( "hk" );
-        listAdapter.add( "Eris" );
-        listAdapter.add( "kjk" );
-        listAdapter.add( "nbn" );
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
+            }
 
-        // Set the ArrayAdapter as the ListView's adapter.
-        mainListView.setAdapter( listAdapter );
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
+
 
 }
