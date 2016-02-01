@@ -20,7 +20,8 @@ import java.util.Arrays;
     public class TabFragment1 extends ListFragment implements AdapterView.OnItemClickListener {
 
     private ArrayAdapter<String> listAdapter ;
-
+    public static String [] prgmImages={"Let Us C","c++","JAVA","Jsp","Microsoft .Net","Android","PHP","Jquery","JavaScript"};
+    public static String [] prgmNameList={"Let Us C","c++","JAVA","Jsp","Microsoft .Net","Android","PHP","Jquery","JavaScript"};
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             View view = inflater.inflate(R.layout.tab_fragment_1, container, false);
@@ -49,6 +50,7 @@ import java.util.Arrays;
 
 
             // Set the ArrayAdapter as the ListView's adapter.
+
             setListAdapter(listAdapter);
             getListView().setOnItemClickListener(this);
         }
