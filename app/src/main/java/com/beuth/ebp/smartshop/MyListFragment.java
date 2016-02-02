@@ -1,7 +1,8 @@
 package com.beuth.ebp.smartshop;
 
-import android.support.v4.app.ListFragment;
 import android.os.Bundle;
+import android.support.v4.app.ListFragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,17 @@ public class MyListFragment extends ListFragment implements OnItemClickListener 
 	CustomAdapter adapter;
 	private List<RowItem> rowItems;
 
+	private List<Item> Items;
+	Bundle args;
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 
+		args = getArguments();
+		Items = (List<Item>) args.getSerializable("asd");
+
+		Log.e("wsfdfsdfsdf",""+ Items);
 		return inflater.inflate(R.layout.list_fragment, null, false);
 	}
 
@@ -36,11 +44,13 @@ public class MyListFragment extends ListFragment implements OnItemClickListener 
 
 		rowItems = new ArrayList<RowItem>();
 
-		for (int i = 0; i < menutitles.length; i++) {
-			RowItem items = new RowItem(menutitles[i], menuIcons[i]);
+		for (int i = 0; i < Items.size(); i++) {
+			RowItem items = new RowItem(Items.get(i).getQuantity(), Items.get(i).getTitle());
 
 			rowItems.add(items);
 		}
+
+
 
 		adapter = new CustomAdapter(getActivity(), rowItems);
 		setListAdapter(adapter);
@@ -56,5 +66,9 @@ public class MyListFragment extends ListFragment implements OnItemClickListener 
 				.show();
 
 	}
+
+
+
+
 
 }
