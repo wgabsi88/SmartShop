@@ -48,14 +48,15 @@ public class CustomAdapter extends BaseAdapter {
 			convertView = mInflater.inflate(R.layout.list_item, null);
 		}
 
-		TextView imgIcon = (TextView) convertView.findViewById(R.id.icon);
+		TextView txtquantity = (TextView) convertView.findViewById(R.id.quantity);
 		TextView txtTitle = (TextView) convertView.findViewById(R.id.title);
 
 		RowItem row_pos = rowItem.get(position);
 		// setting the image resource and title
 
 		txtTitle.setText(row_pos.getTitle());
-		imgIcon.setText(row_pos.getIcon());
+		txtquantity.setText(row_pos.getQuantity()
+		);
 		return convertView;
 
 	}

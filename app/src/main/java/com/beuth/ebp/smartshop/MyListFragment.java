@@ -1,5 +1,6 @@
 package com.beuth.ebp.smartshop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.util.Log;
@@ -45,7 +46,7 @@ public class MyListFragment extends ListFragment implements OnItemClickListener 
 		rowItems = new ArrayList<RowItem>();
 
 		for (int i = 0; i < Items.size(); i++) {
-			RowItem items = new RowItem(Items.get(i).getQuantity(), Items.get(i).getTitle());
+			RowItem items = new RowItem(Items.get(i).getTitle(),Items.get(i).getQuantity());
 
 			rowItems.add(items);
 		}
@@ -61,9 +62,16 @@ public class MyListFragment extends ListFragment implements OnItemClickListener 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-
-		Toast.makeText(getActivity(), menutitles[position], Toast.LENGTH_SHORT)
+		;
+		Toast.makeText(getActivity(), rowItems.get(position).getTitle(), Toast.LENGTH_SHORT)
 				.show();
+
+		Intent inent = new Intent(getActivity(), Produkt_detail.class);
+		String aaa = ""+(position+1);
+
+		inent.putExtra("id", rowItems.get(position).getTitle());
+
+		getActivity().startActivity(inent);
 
 	}
 

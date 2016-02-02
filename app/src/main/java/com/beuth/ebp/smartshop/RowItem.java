@@ -3,11 +3,11 @@ package com.beuth.ebp.smartshop;
 public class RowItem {
 
 	private String title;
-	private String icon;
+	private String quantity;
 
-	public RowItem(String title, String icon) {
+	public RowItem(String title, String quantity) {
 		this.title = title;
-		this.icon = icon;
+		this.quantity = quantity;
 
 	}
 
@@ -19,12 +19,12 @@ public class RowItem {
 		this.title = title;
 	}
 
-	public String getIcon() {
-		return icon;
+	public String getQuantity() {
+		return quantity;
 	}
 
-	public void setIcon(String icon) {
-		this.icon = icon;
+	public void setQuantity(String quantity) {
+		this.quantity = quantity;
 	}
 
 }

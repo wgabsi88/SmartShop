@@ -1,10 +1,9 @@
 package com.beuth.ebp.smartshop;
 
-import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +15,7 @@ import retrofit.RetrofitError;
 /**
  * Created by Jihed on 02.02.2016.
  */
-public class LoginActiviy extends Activity {
+public class LoginActiviy extends AppCompatActivity {
     ListReposTask getlistTask;
     Button btn;
     String sessionIDBody;
@@ -34,12 +33,7 @@ public class LoginActiviy extends Activity {
             @Override
             public void onClick(View v) {
                 //String sessionID = "qqsDAA**9fa7080e1520a471d237f6c7fffff5da";
-                String sessionID = sessionIDBody;
-                String ruName = "beuth-beuth5863-6795--zmfzuz";
-                String uriString = "https://signin.sandbox.ebay.com/ws/eBayISAPI.dll?SignIn&RUName="
-                        + ruName + "&SessID=" + sessionID + "";
-                Uri uri = Uri.parse(uriString); // missing 'http://' will cause crashed
-                Intent intent = new Intent(Intent.ACTION_VIEW, uri);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 startActivity(intent);
             }
         });
