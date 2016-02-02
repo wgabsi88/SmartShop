@@ -13,4 +13,7 @@ public static final String ENDPOINT = "http://192.168.1.8:8080/SmartShopServer";
     @GET("/rest/api/getSessionID")
     Response sessionISResponse();
 
+    @GET("/rest/api/getTocken")
+    Response getTokenResponse();
+
 }
