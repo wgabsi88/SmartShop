@@ -1,18 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/my_awesome_toolbar"
-    android:layout_height="wrap_content"
-    android:layout_width="match_parent"
-    android:minHeight="?attr/actionBarSize"
-    android:background="?attr/colorPrimary" />
+    android:layout_height="match_parent"
+    android:weightSum="10">
+
+
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Button"
-        android:id="@+id/buttontoken"
-        android:layout_gravity="center_horizontal" />
+        android:text="Go To eBay"
+        android:id="@+id/buttongotoeBay"
+        android:layout_gravity="center_horizontal"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="go to smartshop"
+        android:id="@+id/buttongotosmartshop"
+        android:layout_gravity="center_horizontal"
+        android:visibility="invisible"/>
+    <TextView
+        android:id="@+id/textgotoebay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="your token is not valid, please click on go to eby, sign in and come back to app"/>
+    <TextView
+        android:id="@+id/textgotosmartshop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="if you have accepted click on go to smartshop to use ur shop"
+        android:visibility="invisible"/>
+
 </LinearLayout>
