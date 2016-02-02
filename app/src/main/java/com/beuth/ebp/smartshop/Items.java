@@ -8,8 +8,6 @@ import java.util.List;
 public class Items {
     private List<Item> item;
 
-
-
     public List<Item> getItems() {
         return item;
     }
