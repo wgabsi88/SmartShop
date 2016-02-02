@@ -1,6 +1,7 @@
 package com.beuth.ebp.smartshop;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import retrofit.RetrofitError;
  * Created by Jihed on 02.02.2016.
  */
 public class LoginActiviy extends AppCompatActivity {
+
+    public static final String PREFS_NAME = "LoginPrefs";
     ListReposTask getlistTask;
     FetchToken getFetchToken;
     Button btngoeBay;
@@ -32,6 +35,13 @@ public class LoginActiviy extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+        SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+        if (settings.getString("logged", "").toString().equals("logged")) {
+            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+
+            startActivity(intent);
+        }
+
         getlistTask = new ListReposTask();
         getlistTask.execute();
         btngoeBay = (Button) findViewById(R.id.buttongotoeBay);
@@ -129,6 +139,15 @@ public class LoginActiviy extends AppCompatActivity {
             super.onPostExecute(repos);
             token = repos.getBody();
             Log.e("euloooooooooooo", "" + repos.getBody());
+
+
+                SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                SharedPreferences.Editor editor = settings.edit();
+                editor.putString("logged", "logged");
+
+                editor.commit();
+
+
         }
     }
 
