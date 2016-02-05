@@ -51,10 +51,6 @@ public class LoginActiviy extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //String sessionID = "qqsDAA**9fa7080e1520a471d237f6c7fffff5da";
-                if(sessionIDBody == null){
-                    Toast.makeText(getApplicationContext(), "can not get session ID, fix internet and try again", Toast.LENGTH_LONG).show();
-                    startActivity(getIntent());
-                }else {
                     String ruName = "beuth-beuth5863-6795--zmfzuz";
                     String uriString = "https://signin.sandbox.ebay.com/ws/eBayISAPI.dll?SignIn&RUName="
                             + ruName + "&SessID=" + sessionIDBody + "";
@@ -66,7 +62,6 @@ public class LoginActiviy extends AppCompatActivity {
                     txtgoeBay.setVisibility(View.GONE);
                     btngoShop.setVisibility(View.VISIBLE);
                     txtgoShop.setVisibility(View.VISIBLE);
-                }
             }
         });
 
@@ -111,6 +106,10 @@ public class LoginActiviy extends AppCompatActivity {
                 Log.e("SessionIDBody: ", "" + repos.getBody());
             }catch (Exception e){
                 sessionIDBody = null ;
+            }
+            if(sessionIDBody == null){
+                Toast.makeText(getApplicationContext(), "can not get session ID, fix internet and try again", Toast.LENGTH_LONG).show();
+                startActivity(getIntent());
             }
         }
     }
