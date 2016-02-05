@@ -19,7 +19,7 @@
         android:text="go to smartshop"
         android:id="@+id/buttongotosmartshop"
         android:layout_gravity="center_horizontal"
-        android:visibility="invisible"/>
+        android:visibility="gone"/>
     <TextView
         android:id="@+id/textgotoebay"
         android:layout_width="wrap_content"
@@ -30,6 +30,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="if you have accepted click on go to smartshop to use ur shop"
-        android:visibility="invisible"/>
+        android:visibility="gone"/>
 
 </LinearLayout>
