@@ -7,6 +7,7 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.widget.Toast;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                         public Throwable handleError(RetrofitError cause) {
                             Response r = cause.getResponse();
                             if (r != null && r.getStatus() == 405) {
-                          //      Toast.makeText(this, "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
                             }
                             return cause;
                         }
@@ -67,13 +68,10 @@ public class MainActivity extends AppCompatActivity {
         protected void onPostExecute(List<Item> repos) {
             super.onPostExecute(repos);
 
-            Log.e("euloooooooooooo", "" + repos.get(2).getQuantity() + "" + repos.get(2).getTitle());
-
-
+            Log.e("euloooooooooooo", "" + repos.get(1).getQuantity() + "" + repos.get(1).getTitle());
 
             final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-            final PagerAdapter adapter = new PagerAdapter
-                    (getSupportFragmentManager(), tabLayout.getTabCount(),repos);
+            final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount(),repos);
             viewPager.setAdapter(adapter);
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
             tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
