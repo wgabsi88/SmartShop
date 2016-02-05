@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity {
 
             //  String user = params[0];
             Items repoList = githubService.listItems();
-
-
             return repoList.getItems();
         }
 

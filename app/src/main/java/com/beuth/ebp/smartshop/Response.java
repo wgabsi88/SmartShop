@@ -2,14 +2,11 @@ package com.beuth.ebp.smartshop;
 
 import java.util.List;
 
-/**
- * Created by florentchampigny on 05/03/15.
- */
 public class Response {
     private String body;
-    private int status;
+    private String status;
 
-    public Response(String body, int status) {
+    public Response(String body, String status) {
         this.body = body;
         this.status = status;
     }
@@ -22,11 +19,11 @@ public class Response {
         this.body = body;
     }
 
-    public int getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(int status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }

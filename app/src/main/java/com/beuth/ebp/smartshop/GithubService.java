@@ -5,14 +5,14 @@ import retrofit.http.Path;
 
 public interface GithubService {
 
-public static final String ENDPOINT = "http://192.168.1.8:8080/SmartShopServer";
+ String ENDPOINT = "http://192.168.2.123:8080/SmartShopServer";
 
 
     @GET("/rest/api/get")
     Items listItems();
 
     @GET("/rest/api/getSessionID")
-    Response sessionISResponse();
+    Response sessionIDResponse();
 
     @GET("/rest/api/getToken/{sessionid}")
     Response getTokenResponse(@Path("sessionid") String sessionid);
