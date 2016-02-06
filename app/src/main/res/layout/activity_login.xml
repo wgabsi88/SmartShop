@@ -2,33 +2,53 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:weightSum="10">
+    android:weightSum="10"
+    android:background="@drawable/background">
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="150dp">
+
+    </View>
 
 
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="Go To eBay"
         android:id="@+id/buttongotoeBay"
         android:layout_gravity="center_horizontal"
-        />
+        android:background="#ffffff"
+        android:layout_weight="1.74" />
     <Button
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="go to smartshop"
         android:id="@+id/buttongotosmartshop"
         android:layout_gravity="center_horizontal"
+        android:layout_weight="1.74"
+        android:background="#ffffff"
         android:visibility="gone"/>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="50dp">
+
+    </View>
     <TextView
         android:id="@+id/textgotoebay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
         android:text="your token is not valid, please click on go to eby, sign in and come back to app"/>
     <TextView
         android:id="@+id/textgotosmartshop"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:textSize="20dp"
+        android:textColor="#ffffff"
         android:text="if you have accepted click on go to smartshop to use ur shop"
         android:visibility="gone"/>
 
