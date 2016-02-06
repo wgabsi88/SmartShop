@@ -1,6 +1,5 @@
 package com.beuth.ebp.smartshop;
 
-import java.util.List;
 
 public class Response {
     private String body;

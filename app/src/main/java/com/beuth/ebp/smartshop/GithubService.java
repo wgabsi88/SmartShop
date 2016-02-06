@@ -11,6 +11,9 @@ public interface GithubService {
     @GET("/rest/api/get")
     Items listItems();
 
+   @GET("/rest/api/get/{token}")
+   Items getItemsList(@Path("token") String token);
+
     @GET("/rest/api/getSessionID")
     Response sessionIDResponse();
 

@@ -35,7 +35,7 @@ public class LoginActiviy extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
-        if (settings.getString("logged", "").toString().equals("logged")) {
+        if (settings.getString("logged", "").equals("logged")) {
             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
         }
@@ -158,6 +158,7 @@ public class LoginActiviy extends AppCompatActivity {
                 SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("logged", "logged");
+                editor.putString("userToken",token);
                 editor.commit();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("userToken", token);
