@@ -50,7 +50,9 @@ public class LoginActiviy extends AppCompatActivity {
         btngoeBay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //String sessionID = "qqsDAA**9fa7080e1520a471d237f6c7fffff5da";
+                if(sessionIDBody != null && sessionIDBody != "null" ) {
+
+                    //String sessionID = "qqsDAA**9fa7080e1520a471d237f6c7fffff5da";
                     String ruName = "beuth-beuth5863-6795--zmfzuz";
                     String uriString = "https://signin.sandbox.ebay.com/ws/eBayISAPI.dll?SignIn&RUName="
                             + ruName + "&SessID=" + sessionIDBody + "";
@@ -62,6 +64,11 @@ public class LoginActiviy extends AppCompatActivity {
                     txtgoeBay.setVisibility(View.GONE);
                     btngoShop.setVisibility(View.VISIBLE);
                     txtgoShop.setVisibility(View.VISIBLE);
+                }else {
+                    Toast.makeText(getApplicationContext(), "please click again", Toast.LENGTH_SHORT).show();
+
+
+                }
             }
         });
 
