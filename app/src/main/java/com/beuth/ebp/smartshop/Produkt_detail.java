@@ -4,9 +4,6 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-/**
- * Created by waelgabsi on 12.01.16.
- */
 public class Produkt_detail extends AppCompatActivity {
     String value;
     @Override
@@ -19,8 +16,8 @@ public class Produkt_detail extends AppCompatActivity {
             value = extras.getString("id");
 
         }
-        TextView txt = (TextView)findViewById(R.id.textView2);
-        txt.append(value);
+        TextView txt = (TextView)findViewById(R.id.textviewproductname);
+        txt.setText(value);
     }
 
 }
