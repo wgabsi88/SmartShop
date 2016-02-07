@@ -29,13 +29,13 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 MyListFragment tab1 = new MyListFragment();
                 Bundle args = new Bundle();
-                args.putSerializable("asd", (Serializable) rowitems);
+                args.putSerializable("rowitems", (Serializable) rowitems);
                 tab1.setArguments(args);
                 return tab1;
             case 1:
                 MyListFragment tab2 = new MyListFragment();
                 Bundle argss = new Bundle();
-                argss.putSerializable("asd", (Serializable) rowitems);
+                argss.putSerializable("rowitems", (Serializable) rowitems);
                 tab2.setArguments(argss);
                 return tab2;
             default:

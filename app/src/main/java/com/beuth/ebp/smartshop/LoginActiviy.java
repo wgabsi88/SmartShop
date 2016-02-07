@@ -38,6 +38,7 @@ public class LoginActiviy extends AppCompatActivity {
         if (settings.getString("logged", "").equals("logged")) {
             Intent intent = new Intent(getApplicationContext(),MainActivity.class);
             startActivity(intent);
+            finish();
         }
 
         getlistTask = new SessionIDTask();

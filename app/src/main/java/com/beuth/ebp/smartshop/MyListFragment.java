@@ -17,8 +17,7 @@ import java.util.List;
 public class MyListFragment extends ListFragment implements OnItemClickListener {
 
 
-	 String [] menutitles={"Let Us C","c++","JAVA","Jsp","Microsoft .Net","Android","PHP","Jquery","JavaScript"};
-	String [] menuIcons={"Let Us C","c++","JAVA","Jsp","Microsoft .Net","Android","PHP","Jquery","JavaScript"};
+
 	CustomAdapter adapter;
 	private List<RowItem> rowItems;
 
@@ -30,9 +29,9 @@ public class MyListFragment extends ListFragment implements OnItemClickListener 
 			Bundle savedInstanceState) {
 
 		args = getArguments();
-		Items = (List<Item>) args.getSerializable("asd");
+		Items = (List<Item>) args.getSerializable("rowitems");
 
-		Log.e("wsfdfsdfsdf",""+ Items);
+		Log.e("Itemsfragment",""+ Items);
 		return inflater.inflate(R.layout.list_fragment, null, false);
 	}
 

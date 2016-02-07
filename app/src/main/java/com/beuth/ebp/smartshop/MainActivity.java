@@ -9,11 +9,13 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.Toast;
 
 import java.util.List;
 
 import retrofit.ErrorHandler;
+import retrofit.RequestInterceptor;
 import retrofit.RestAdapter;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -32,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences settings = getSharedPreferences(LoginActiviy.PREFS_NAME, 0);
         token = settings.getString("userToken","");
+        Log.e("token on create ",token);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -73,11 +76,26 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();  // Always call the superclass method first
+        getListTask = new ListReposTask();
+        getListTask.execute();
+
+    }
+
     class ListReposTask extends AsyncTask<String, Void, List<Item>> {
 
         @Override
         protected List<Item> doInBackground(String... params) {
+            Log.e("before header",token);
             GithubService githubService = new RestAdapter.Builder()
+                    .setRequestInterceptor(new RequestInterceptor() {
+                        @Override
+                        public void intercept(RequestFacade request) {
+                            request.addHeader("token", token);
+                        }
+                    })
                     .setEndpoint(GithubService.ENDPOINT)
                     .setErrorHandler(new ErrorHandler() {
                         @Override
@@ -91,8 +109,10 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .build().create(GithubService.class);
 
-            //Items repoList = githubService.getItemsList(token);
-            Items repoList = githubService.listItems();
+          //  Items repoList = githubService.getItemsList(token1);
+            Log.e("before list",token);
+            Items repoList = githubService.getItemsList(token);
+            Log.e("after list",""+repoList);
             return repoList.getItems();
         }
 
