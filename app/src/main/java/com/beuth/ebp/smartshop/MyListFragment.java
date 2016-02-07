@@ -32,7 +32,7 @@ public class MyListFragment extends ListFragment implements OnItemClickListener 
 		Items = (List<Item>) args.getSerializable("rowitems");
 
 		Log.e("Itemsfragment",""+ Items);
-		return inflater.inflate(R.layout.list_fragment, null, false);
+		return inflater.inflate(R.layout.list_product_fragment, null, false);
 	}
 
 	@Override
