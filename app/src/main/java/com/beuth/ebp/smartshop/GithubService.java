@@ -24,7 +24,7 @@ public interface GithubService {
     @GET("/api/getToken/{sessionid}")
     Response getTokenResponse(@Path("sessionid") String sessionid);
 
-    @GET("/addItem/put")
-    Response getAddItemResponse();
+    @POST("/addItem/put")
+    Response getAddItemResponse(@Header("token") String token, @Header("title") String title, @Header("description") String description, @Header("startPrice") String startPrice);
 
 }

@@ -1,12 +1,14 @@
 package com.beuth.ebp.smartshop;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -14,6 +16,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import java.util.List;
@@ -35,15 +39,15 @@ public class MainActivity extends AppCompatActivity {
     List<Order> reposer;
     String token;
     String addItemResponse;
+    String itemTitle;
+    String itemDescitpion;
+    String itemStartPrice;
     SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
-
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingbtn);
 
@@ -57,40 +61,73 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Products"));
         tabLayout.addTab(tabLayout.newTab().setText("Orders"));
-
         getOrderTask = new OrderTask();
         getOrderTask.execute();
 
         getListTask = new ListReposTask();
         getListTask.execute();
-     //   if(lastTab >= 0){
-           //selectLastSelectedTab(1);
 
-    //    }
+        floatingActionButton.setOnClickListener(showAddProductDialog());
+    }
 
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+    @NonNull
+    private View.OnClickListener showAddProductDialog() {
+        return new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Context context = MainActivity.this;
+                AlertDialog.Builder dialog = new AlertDialog.Builder(context);
+                LinearLayout layout = new LinearLayout(context);
+                layout.setOrientation(LinearLayout.VERTICAL);
 
-                new AlertDialog.Builder(MainActivity.this)
-                        .setTitle("Add Item")
-                        .setMessage("Are you sure you want to add new Item?")
-                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                final EditText titleBox = new EditText(context);
+                titleBox.setHint("Title");
+                titleBox.setHeight(150);
+                layout.addView(titleBox);
+
+                final EditText descriptionBox = new EditText(context);
+                descriptionBox.setHint("Description");
+                descriptionBox.setHeight(300);
+                layout.addView(descriptionBox);
+
+                final EditText startPriceBox = new EditText(context);
+                startPriceBox.setHint("price in EURO (ex. 200)");
+                startPriceBox.setHeight(150);
+                startPriceBox.setCursorVisible(true);
+                layout.addView(startPriceBox);
+
+                dialog.setTitle("Add new product form");
+                dialog.setMessage("Put product info and confirm");
+                dialog.setPositiveButton(android.R.string.yes,
+                        new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                addProductTask = new AddProductTask();
-                                addProductTask.execute();
-                                //Toast.makeText(MainActivity.this, "add Item succes", Toast.LENGTH_SHORT).show();
+                                if (!titleBox.getText().toString().equals("") && !descriptionBox.getText().toString().equals("") && !startPriceBox.getText().toString().equals("")) {
+                                    itemTitle = titleBox.getText().toString();
+                                    itemDescitpion = descriptionBox.getText().toString();
+                                    itemStartPrice = startPriceBox.getText().toString();
+                                    addProductTask = new AddProductTask();
+                                    addProductTask.execute();
+                                    Toast.makeText(MainActivity.this, "call add product Request of : " + itemTitle, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    Toast.makeText(MainActivity.this, "All fields are required", Toast.LENGTH_SHORT).show();
+                                }
                             }
-                        })
-                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(MainActivity.this, "add Item canceled", Toast.LENGTH_SHORT).show();
-                            }
-                        })
-                        .setIcon(android.R.drawable.ic_dialog_alert)
-                        .show();
+                        });
+                dialog.setNegativeButton(android.R.string.no, executeNegativeAddProductDialog());
+                dialog.setIcon(R.drawable.ic_action_add);
+                dialog.setView(layout);
+                dialog.show();
             }
-        });
+        };
+    }
+
+    @NonNull
+    private DialogInterface.OnClickListener executeNegativeAddProductDialog() {
+        return new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                Toast.makeText(MainActivity.this, "add product canceled", Toast.LENGTH_SHORT).show();
+            }
+        };
     }
 
     public void closeApp() {
@@ -99,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
+
     private Boolean exit = false;
 
     @Override
@@ -150,7 +188,6 @@ public class MainActivity extends AppCompatActivity {
                         }
                     })
                     .build().create(GithubService.class);
-
             Items repoList = githubService.getItemsList(token);
             return repoList.getItems();
         }
@@ -193,7 +230,8 @@ public class MainActivity extends AppCompatActivity {
                             if (r != null && r.getStatus() == 405) {
                                 Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
                             }
-                            return cause;                        }
+                            return cause;
+                        }
                     })
                     .build().create(GithubService.class);
             try {
@@ -221,11 +259,17 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected com.beuth.ebp.smartshop.Response doInBackground(String... params) {
             GithubService githubService = new RestAdapter.Builder()
+                    .setRequestInterceptor(new RequestInterceptor() {
+                        @Override
+                        public void intercept(RequestFacade request) {
+                            request.addHeader("token", token);
+                        }
+                    })
                     .setEndpoint(GithubService.ENDPOINT)
                     .setErrorHandler(new ErrorHandler() {
                         @Override
                         public Throwable handleError(RetrofitError cause) {
-                            retrofit.client.Response r = cause.getResponse();
+                            Response r = cause.getResponse();
                             if (r != null && r.getStatus() == 405) {
                                 Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
                             }
@@ -234,7 +278,7 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .build().create(GithubService.class);
             try {
-                return githubService.getAddItemResponse();
+                return githubService.getAddItemResponse(token, itemTitle, itemDescitpion, itemStartPrice);
             } catch (Exception e) {
                 return null;
             }
@@ -246,7 +290,7 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(repos);
                 addItemResponse = repos.getBody();
                 Log.e("Product ID: ", "" + repos.getBody());
-                Toast.makeText(getApplicationContext(),"add product succes with ID: " + addItemResponse, Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "add product succes with ID: " + addItemResponse, Toast.LENGTH_SHORT).show();
             } catch (Exception e) {
                 addItemResponse = null;
             }
