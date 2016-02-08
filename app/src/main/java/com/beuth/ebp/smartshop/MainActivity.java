@@ -1,15 +1,19 @@
 package com.beuth.ebp.smartshop;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.List;
@@ -24,13 +28,15 @@ import retrofit.client.Response;
 public class MainActivity extends AppCompatActivity {
     ListReposTask getListTask;
     TabLayout tabLayout;
-
+    FloatingActionButton floatingActionButton;
     String token;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        floatingActionButton = (FloatingActionButton)findViewById(R.id.floatingbtn);
 
         SharedPreferences settings = getSharedPreferences(LoginActiviy.PREFS_NAME, 0);
         token = settings.getString("userToken","");
@@ -45,6 +51,27 @@ public class MainActivity extends AppCompatActivity {
 
         getListTask = new ListReposTask();
         getListTask.execute();
+
+        floatingActionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(MainActivity.this)
+                        .setTitle("Add Item")
+                        .setMessage("Are you sure you want to add new Item?")
+                        .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(MainActivity.this,"add Item succes",Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                Toast.makeText(MainActivity.this,"add Item canceled",Toast.LENGTH_SHORT).show();
+                            }
+                        })
+                        .setIcon(android.R.drawable.ic_dialog_alert)
+                        .show();
+            }
+        });
     }
 
     public void closeApp() {
