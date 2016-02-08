@@ -16,66 +16,43 @@ import java.util.List;
 
 public class ProductFragment extends ListFragment implements OnItemClickListener {
 
+    CustomAdapter adapter;
+    private List<RowItem> rowItems;
 
+    private List<Item> Items;
+    Bundle args;
 
-	CustomAdapter adapter;
-	private List<RowItem> rowItems;
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-	private List<Item> Items;
-	Bundle args;
+        args = getArguments();
+        Items = (List<Item>) args.getSerializable("rowitems");
+        Log.e("Itemsfragment", "" + Items);
+        return inflater.inflate(R.layout.list_product_fragment, null, false);
+    }
 
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
 
-		args = getArguments();
-		Items = (List<Item>) args.getSerializable("rowitems");
+        super.onActivityCreated(savedInstanceState);
+        rowItems = new ArrayList<RowItem>();
+        for (int i = 0; i < Items.size(); i++) {
+            RowItem items = new RowItem(Items.get(i).getTitle(), Items.get(i).getQuantity());
+            rowItems.add(items);
+        }
+        adapter = new CustomAdapter(getActivity(), rowItems);
+        setListAdapter(adapter);
+        getListView().setOnItemClickListener(this);
+    }
 
-		Log.e("Itemsfragment",""+ Items);
-		return inflater.inflate(R.layout.list_product_fragment, null, false);
-	}
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getActivity(), rowItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-
-		super.onActivityCreated(savedInstanceState);
-
-
-
-		rowItems = new ArrayList<RowItem>();
-
-		for (int i = 0; i < Items.size(); i++) {
-			RowItem items = new RowItem(Items.get(i).getTitle(),Items.get(i).getQuantity());
-
-			rowItems.add(items);
-		}
-
-
-
-		adapter = new CustomAdapter(getActivity(), rowItems);
-		setListAdapter(adapter);
-		getListView().setOnItemClickListener(this);
-
-	}
-
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		;
-		Toast.makeText(getActivity(), rowItems.get(position).getTitle(), Toast.LENGTH_SHORT)
-				.show();
-
-		Intent inent = new Intent(getActivity(), Produkt_detail.class);
-		String aaa = ""+(position+1);
-
-		inent.putExtra("id", rowItems.get(position).getTitle());
-
-		getActivity().startActivity(inent);
-
-	}
-
-
-
-
+        Intent inent = new Intent(getActivity(), Produkt_detail.class);
+        String aaa = "" + (position + 1);
+        inent.putExtra("id", rowItems.get(position).getTitle());
+        getActivity().startActivity(inent);
+    }
 
 }

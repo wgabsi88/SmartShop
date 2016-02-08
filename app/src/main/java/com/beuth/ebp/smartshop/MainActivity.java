@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        floatingActionButton = (FloatingActionButton)findViewById(R.id.floatingbtn);
+        floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingbtn);
 
         SharedPreferences settings = getSharedPreferences(LoginActiviy.PREFS_NAME, 0);
-        token = settings.getString("userToken","");
+        token = settings.getString("userToken", "");
         Log.e("token on create ", token);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -87,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private Boolean exit = false;
+
     @Override
     public void onBackPressed() {
         if (exit) {
@@ -94,17 +95,15 @@ public class MainActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Press Back again to Exit.",
                     Toast.LENGTH_SHORT).show();
-                        exit = true;
-                        new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                                exit = false;
-                            }
-                        },
+            exit = true;
+            new Handler().postDelayed(new Runnable() {
+                                          @Override
+                                          public void run() {
+                                              exit = false;
+                                          }
+                                      },
                     3 * 1000);
-
         }
-
     }
 
     @Override
@@ -112,14 +111,13 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();  // Always call the superclass method first
         getListTask = new ListReposTask();
         getListTask.execute();
-
     }
 
     class ListReposTask extends AsyncTask<String, Void, List<Item>> {
 
         @Override
         protected List<Item> doInBackground(String... params) {
-           // Log.e("before header",token);
+            // Log.e("before header",token);
             GithubService githubService = new RestAdapter.Builder()
                     .setRequestInterceptor(new RequestInterceptor() {
                         @Override
@@ -140,10 +138,10 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .build().create(GithubService.class);
 
-          //  Items repoList = githubService.getItemsList(token1);
-         //   Log.e("before list",token);
+            //  Items repoList = githubService.getItemsList(token1);
+            //   Log.e("before list",token);
             Items repoList = githubService.getItemsList(token);
-          //  Log.e("after list",""+repoList);
+            //  Log.e("after list",""+repoList);
             return repoList.getItems();
         }
 
@@ -152,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(repos);
 
             final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-            final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount(),repos, reposer);
+            final PagerAdapter adapter = new PagerAdapter(getSupportFragmentManager(), tabLayout.getTabCount(), repos, reposer);
             viewPager.setAdapter(adapter);
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
             tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -163,12 +161,10 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onTabUnselected(TabLayout.Tab tab) {
-
                 }
 
                 @Override
                 public void onTabReselected(TabLayout.Tab tab) {
-
                 }
             });
         }
@@ -193,7 +189,6 @@ public class MainActivity extends AppCompatActivity {
                     .build().create(GithubService.class);
             try {
                 Orders repoList = githubService.listOrder();
-
                 return repoList.getOrders();
             } catch (Exception e) {
                 return null;
@@ -207,11 +202,8 @@ public class MainActivity extends AppCompatActivity {
                 reposer = repos;
                 Log.e("onPostExecute", "" + reposer);
             } catch (Exception e) {
-
+                e.printStackTrace();
             }
         }
-
     }
-
-
 }

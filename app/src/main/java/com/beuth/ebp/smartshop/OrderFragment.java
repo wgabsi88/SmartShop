@@ -13,12 +13,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Created by waelgabsi on 08.02.16.
- */
 public class OrderFragment extends ListFragment implements AdapterView.OnItemClickListener {
-
-
 
     CustomAdapter adapter;
     private List<RowItem> rowItems;
@@ -27,12 +22,10 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
     Bundle args;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         args = getArguments();
         Orders = (List<Order>) args.getSerializable("roworders");
-
         Log.e("oRDERSfragment", "" + Orders);
         return inflater.inflate(R.layout.list_product_fragment, null, false);
     }
@@ -41,43 +34,24 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-
-
-
         rowItems = new ArrayList<RowItem>();
-
         for (int i = 0; i < Orders.size(); i++) {
-            RowItem items = new RowItem(Orders.get(i).getTitle(),Orders.get(i).getQuantity());
-
+            RowItem items = new RowItem(Orders.get(i).getTitle(), Orders.get(i).getQuantity());
             rowItems.add(items);
         }
-
-
 
         adapter = new CustomAdapter(getActivity(), rowItems);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
-
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position,
-                            long id) {
-        ;
-        Toast.makeText(getActivity(), rowItems.get(position).getTitle(), Toast.LENGTH_SHORT)
-                .show();
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(getActivity(), rowItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 
         Intent inent = new Intent(getActivity(), Order_detail.class);
-        String aaa = ""+(position+1);
-
+        String aaa = "" + (position + 1);
         inent.putExtra("id", rowItems.get(position).getTitle());
-
         getActivity().startActivity(inent);
-
     }
-
-
-
-
-
 }

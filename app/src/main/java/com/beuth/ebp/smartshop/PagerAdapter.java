@@ -1,9 +1,5 @@
 package com.beuth.ebp.smartshop;
 
-/**
- * Created by waelgabsi on 05.01.16.
- */
-
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
@@ -17,7 +13,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     List<Item> rowitems;
     List<Order> roworders;
 
-    public PagerAdapter(FragmentManager fm, int NumOfTabs,List<Item> rowitems,List<Order> roworders) {
+    public PagerAdapter(FragmentManager fm, int NumOfTabs, List<Item> rowitems, List<Order> roworders) {
         super(fm);
         this.mNumOfTabs = NumOfTabs;
         this.rowitems = rowitems;
@@ -49,6 +45,5 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     public int getCount() {
         return mNumOfTabs;
     }
-
 
 }

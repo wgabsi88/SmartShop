@@ -8,7 +8,6 @@ public class Item implements Serializable {
     private String title;
     private String quantity;
 
-
     public String getTitle() {
         return title;
     }

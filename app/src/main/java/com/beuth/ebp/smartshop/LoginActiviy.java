@@ -52,7 +52,6 @@ public class LoginActiviy extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (sessionIDBody != null && sessionIDBody != "null") {
-
                     //String sessionID = "qqsDAA**9fa7080e1520a471d237f6c7fffff5da";
                     String ruName = "beuth-beuth5863-6795--zmfzuz";
                     String uriString = "https://signin.sandbox.ebay.com/ws/eBayISAPI.dll?SignIn&RUName="
@@ -67,8 +66,6 @@ public class LoginActiviy extends AppCompatActivity {
                     txtgoShop.setVisibility(View.VISIBLE);
                 } else {
                     Toast.makeText(getApplicationContext(), "please click again", Toast.LENGTH_SHORT).show();
-
-
                 }
             }
         });
@@ -132,7 +129,6 @@ public class LoginActiviy extends AppCompatActivity {
                         @Override
                         public Throwable handleError(RetrofitError cause) {
                             retrofit.client.Response r = cause.getResponse();
-
                             return cause;
                         }
                     })
@@ -173,10 +169,6 @@ public class LoginActiviy extends AppCompatActivity {
                 intent.putExtra("userToken", token);
                 startActivity(intent);
             }
-
         }
     }
-
-
-
 }
