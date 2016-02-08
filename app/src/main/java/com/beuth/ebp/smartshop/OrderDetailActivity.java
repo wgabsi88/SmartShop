@@ -16,6 +16,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     String street;
     int housenr;
     int zip;
+    int position;
     String city;
     String email;
     String phone;
@@ -50,7 +51,7 @@ public class OrderDetailActivity extends AppCompatActivity {
           //  Log.e("email",""+email);
             phone = extras.getString("phone");
           //  Log.e("phone",""+phone);
-
+            position = extras.getInt("position");
         }
         TextView txtid = (TextView)findViewById(R.id.textviewproductname);
         TextView txttitle = (TextView)findViewById(R.id.textviewproductname);
@@ -86,6 +87,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                 intent.putExtra("city", city);
                 intent.putExtra("email", email);
                 intent.putExtra("phone", phone);
+                intent.putExtra("position", position);
                 startActivity(intent);
             }
         });

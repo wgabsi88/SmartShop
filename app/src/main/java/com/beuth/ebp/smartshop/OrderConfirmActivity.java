@@ -1,11 +1,18 @@
 package com.beuth.ebp.smartshop;
 
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
+
+import retrofit.ErrorHandler;
+import retrofit.RestAdapter;
+import retrofit.RetrofitError;
 
 public class OrderConfirmActivity extends AppCompatActivity {
 
@@ -14,6 +21,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     String street;
     int housenr;
     int zip;
+    int position;
     String city;
     String email;
     String phone;
@@ -28,6 +36,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     EditText txtsstr;
     EditText txtscity;
     EditText txtszip;
+    OrderTask getOrderTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +81,8 @@ public class OrderConfirmActivity extends AppCompatActivity {
             //  Log.e("email",""+email);
             phone = extras.getString("phone");
             //  Log.e("phone",""+phone); */
+            position = extras.getInt("position");
+            Toast.makeText(getApplicationContext(), ""+ position, Toast.LENGTH_SHORT).show();
 
         }
 
@@ -91,7 +102,8 @@ public class OrderConfirmActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
             //    Intent intent = new Intent(OrderConfirmActivity.this, OrderConfirmActivity.class);
-
+                getOrderTask = new OrderTask();
+                getOrderTask.execute();
              //   startActivity(intent);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("senderstr", txtsstr.getText().toString());
@@ -102,6 +114,42 @@ public class OrderConfirmActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    class OrderTask extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... params) {
+            GithubService githubService = new RestAdapter.Builder()
+                    .setEndpoint(GithubService.ENDPOINT)
+                    .setErrorHandler(new ErrorHandler() {
+                        @Override
+                        public Throwable handleError(RetrofitError cause) {
+                            retrofit.client.Response r = cause.getResponse();
+                            if (r != null && r.getStatus() == 405) {
+                                Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
+                            }
+                            return cause;                        }
+                    })
+                    .build().create(GithubService.class);
+            try {
+                 githubService.ConfirmOrder(position);
+                return null;
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(Void params) {
+            try {
+                super.onPostExecute(params);
+
+                Log.e("onPostExecute", "" );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 }
 

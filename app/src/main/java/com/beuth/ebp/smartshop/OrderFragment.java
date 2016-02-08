@@ -35,7 +35,7 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
         super.onActivityCreated(savedInstanceState);
         rowItems = new ArrayList<RowItem>();
         for (int i = 0; i < Orders.size(); i++) {
-            RowItem items = new RowItem(Orders.get(i).getName(), Orders.get(i).getQuantity());
+            RowItem items = new RowItem(Orders.get(i).getOrderid(), Orders.get(i).getStatus());
             rowItems.add(items);
         }
 
@@ -61,6 +61,7 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
         inent.putExtra("city", Orders.get(position).getCity());
         inent.putExtra("email", Orders.get(position).getEmail());
         inent.putExtra("phone", Orders.get(position).getPhone());
+        inent.putExtra("position", position);
         getActivity().startActivity(inent);
     }
 }

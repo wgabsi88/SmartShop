@@ -17,6 +17,7 @@ public class Order implements Serializable {
     String city;
     String email;
     String phone;
+    String status;
 
     public String getOrderid() {
         return orderid;
@@ -104,5 +105,12 @@ public class Order implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

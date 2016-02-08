@@ -124,6 +124,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();  // Always call the superclass method first
         getListTask = new ListReposTask();
         getListTask.execute();
+        getOrderTask = new OrderTask();
+        getOrderTask.execute();
     }
 
     class ListReposTask extends AsyncTask<String, Void, List<Item>> {
