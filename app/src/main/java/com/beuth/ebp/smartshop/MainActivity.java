@@ -8,7 +8,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
@@ -70,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(showAddProductDialog());
     }
 
-    @NonNull
+
     private View.OnClickListener showAddProductDialog() {
         return new View.OnClickListener() {
             @Override
@@ -121,7 +120,7 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
-    @NonNull
+
     private DialogInterface.OnClickListener executeNegativeAddProductDialog() {
         return new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
