@@ -8,15 +8,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderFragment extends ListFragment implements AdapterView.OnItemClickListener {
 
-    CustomAdapter adapter;
-    private List<RowItem> rowItems;
+    CustomOrderAdapter adapter;
+    private List<OrderItem> rowItems;
 
     private List<Order> Orders;
     Bundle args;
@@ -34,20 +33,20 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
     public void onActivityCreated(Bundle savedInstanceState) {
 
         super.onActivityCreated(savedInstanceState);
-        rowItems = new ArrayList<RowItem>();
+        rowItems = new ArrayList<OrderItem>();
         for (int i = 0; i < Orders.size(); i++) {
-            RowItem items = new RowItem(Orders.get(i).getOrderid(), Orders.get(i).getStatus());
+
+            OrderItem items = new OrderItem(Orders.get(i).getOrderid(), Orders.get(i).getStatus());
             rowItems.add(items);
         }
 
-        adapter = new CustomAdapter(getActivity(), rowItems);
+        adapter = new CustomOrderAdapter(getActivity(), rowItems);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(getActivity(), rowItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 
         Intent inent = new Intent(getActivity(), OrderDetailActivity.class);
 

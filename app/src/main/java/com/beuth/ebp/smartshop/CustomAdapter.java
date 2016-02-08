@@ -47,8 +47,7 @@ public class CustomAdapter extends BaseAdapter {
         RowItem row_pos = rowItem.get(position);
         // setting the image resource and title
         txtTitle.setText(row_pos.getTitle());
-        txtquantity.setText(row_pos.getQuantity()
-        );
+        txtquantity.setText(row_pos.getQuantity());
         return convertView;
     }
 }

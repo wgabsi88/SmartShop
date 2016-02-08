@@ -82,7 +82,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
             phone = extras.getString("phone");
             //  Log.e("phone",""+phone); */
             position = extras.getInt("position");
-            Toast.makeText(getApplicationContext(), ""+ position, Toast.LENGTH_SHORT).show();
 
         }
 
