@@ -28,6 +28,6 @@ public interface GithubService {
     Response getTokenResponse(@Path("sessionid") String sessionid);
 
     @POST("/addItem/put")
-    Response getAddItemResponse(@Header("token") String token, @Header("title") String title, @Header("description") String description, @Header("startPrice") String startPrice);
+    Response getAddItemResponse(@Header("token") String token, @Header("title") String title, @Header("description") String description, @Header("price") String price);
 
 }

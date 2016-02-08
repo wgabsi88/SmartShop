@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -70,7 +71,6 @@ public class MainActivity extends AppCompatActivity {
         floatingActionButton.setOnClickListener(showAddProductDialog());
     }
 
-
     private View.OnClickListener showAddProductDialog() {
         return new View.OnClickListener() {
             @Override
@@ -101,6 +101,7 @@ public class MainActivity extends AppCompatActivity {
                 dialog.setPositiveButton(android.R.string.yes,
                         new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
+                                getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
                                 if (!titleBox.getText().toString().equals("") && !descriptionBox.getText().toString().equals("") && !startPriceBox.getText().toString().equals("")) {
                                     itemTitle = titleBox.getText().toString();
                                     itemDescitpion = descriptionBox.getText().toString();
@@ -178,7 +179,6 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected List<Item> doInBackground(String... params) {
-            // Log.e("before header",token);
             GithubService githubService = new RestAdapter.Builder()
                     .setRequestInterceptor(new RequestInterceptor() {
                         @Override
@@ -198,7 +198,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     })
                     .build().create(GithubService.class);
-            Items repoList = githubService.listItems();
+            Items repoList = githubService.getItemsList(token);
             return repoList.getItems();
         }
 
@@ -267,6 +267,13 @@ public class MainActivity extends AppCompatActivity {
 
     class AddProductTask extends AsyncTask<String, Void, com.beuth.ebp.smartshop.Response> {
 
+        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Add product to shop");
+            progressDialog.show();
+        }
         @Override
         protected com.beuth.ebp.smartshop.Response doInBackground(String... params) {
             GithubService githubService = new RestAdapter.Builder()
@@ -289,7 +296,8 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .build().create(GithubService.class);
             try {
-                return githubService.getAddItemResponse(token, itemTitle, itemDescitpion, itemStartPrice);
+                com.beuth.ebp.smartshop.Response response = githubService.getAddItemResponse(token, itemTitle, itemDescitpion, itemStartPrice);
+                return response;
             } catch (Exception e) {
                 return null;
             }
@@ -301,7 +309,12 @@ public class MainActivity extends AppCompatActivity {
                 super.onPostExecute(repos);
                 addItemResponse = repos.getBody();
                 Log.e("Product ID: ", "" + repos.getBody());
-                Toast.makeText(getApplicationContext(), "add product succes with ID: " + addItemResponse, Toast.LENGTH_SHORT).show();
+                if(!repos.getBody().equals("null")) {
+                    Toast.makeText(getApplicationContext(), "add product success with ID: " + addItemResponse, Toast.LENGTH_SHORT).show();
+                    getListTask.execute();
+                }else{
+                    Toast.makeText(getApplicationContext(), "add product error from server", Toast.LENGTH_SHORT).show();
+                }
             } catch (Exception e) {
                 addItemResponse = null;
             }
