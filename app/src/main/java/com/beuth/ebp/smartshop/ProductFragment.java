@@ -49,8 +49,7 @@ public class ProductFragment extends ListFragment implements OnItemClickListener
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(), rowItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 
-        Intent inent = new Intent(getActivity(), Produkt_detail.class);
-        String aaa = "" + (position + 1);
+        Intent inent = new Intent(getActivity(), ProductDetailActivity.class);
         inent.putExtra("id", rowItems.get(position).getTitle());
         getActivity().startActivity(inent);
     }

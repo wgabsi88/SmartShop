@@ -24,11 +24,11 @@
 
         </activity>
         <activity
-            android:name=".Produkt_detail" >
+            android:name=".ProductDetailActivity" >
 
         </activity>
         <activity
-            android:name=".Order_detail" >
+            android:name=".OrderDetailActivity" >
 
         </activity>
     </application>
