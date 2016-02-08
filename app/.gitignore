@@ -1,8 +1,0 @@
-**/build
-*.iml
-**/*.iml
-.gradle/
-.idea/
-.metadata/
-*.log
-local.properties
