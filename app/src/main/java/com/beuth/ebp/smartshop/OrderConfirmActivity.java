@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import retrofit.ErrorHandler;
@@ -25,7 +26,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
     String city;
     String email;
     String phone;
-    Button confirmButton;
     SharedPreferences settings;
     EditText txtrstreet;
     EditText txtrcity;
@@ -37,6 +37,15 @@ public class OrderConfirmActivity extends AppCompatActivity {
     EditText txtscity;
     EditText txtszip;
     OrderTask getOrderTask;
+    LinearLayout section1;
+    LinearLayout section2;
+    LinearLayout section3;
+    LinearLayout recieverlayoutadress;
+    LinearLayout recieverlayoutinfos;
+    LinearLayout senderlayoutadress;
+    Button confirmButton;
+    Button continue1;
+    Button continue2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,18 +61,87 @@ public class OrderConfirmActivity extends AppCompatActivity {
          txtsstr = (EditText) findViewById(R.id.senderstr);
          txtscity = (EditText) findViewById(R.id.sendercity);
          txtszip = (EditText) findViewById(R.id.senderzip);
+        section1 =(LinearLayout) findViewById(R.id.sectionhide1);
+        section2 =(LinearLayout) findViewById(R.id.sectionhide2);
+        section3  =(LinearLayout) findViewById(R.id.sectionhide3);
+        recieverlayoutadress =(LinearLayout) findViewById(R.id.sectionrecieveradress);
+        recieverlayoutinfos=(LinearLayout) findViewById(R.id.sectionrecieverinfos);
+        senderlayoutadress=(LinearLayout) findViewById(R.id.sectionsenderadress);
+        continue1=(Button)findViewById(R.id.blockbtn1);
+        continue2=(Button)findViewById(R.id.blockbtn2);
+
         //get strings from shared preferences
          settings = getSharedPreferences(PREFS_NAME, 0);
         if (settings.getString("senderstr", "") != null) {
             txtsstr.setText(settings.getString("senderstr", ""));
             txtscity.setText(settings.getString("sendercity", ""));
             txtszip.setText(settings.getString("senderzip", ""));
-
+        }else{
+            section3.setVisibility(View.GONE);
+            senderlayoutadress.setVisibility(View.VISIBLE);
         }
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
+        continue1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                section1.setVisibility(View.VISIBLE);
+                recieverlayoutadress.setVisibility(View.GONE);
+                section2.setVisibility(View.GONE);
+                recieverlayoutinfos.setVisibility(View.VISIBLE);
+
+            }
+        });
+        continue2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                section2.setVisibility(View.VISIBLE);
+                recieverlayoutinfos.setVisibility(View.GONE);
+                section3.setVisibility(View.GONE);
+                senderlayoutadress.setVisibility(View.VISIBLE);
+
+            }
+        });
+
+        section1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                section1.setVisibility(View.GONE);
+                section2.setVisibility(View.VISIBLE);
+                recieverlayoutinfos.setVisibility(View.GONE);
+                section3.setVisibility(View.VISIBLE);
+                senderlayoutadress.setVisibility(View.GONE);
+                recieverlayoutadress.setVisibility(View.VISIBLE);
+
+            }
+        });
+        section2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                section1.setVisibility(View.VISIBLE);
+                recieverlayoutadress.setVisibility(View.GONE);
+                recieverlayoutinfos.setVisibility(View.VISIBLE);
+                section2.setVisibility(View.GONE);
+                section3.setVisibility(View.VISIBLE);
+                senderlayoutadress.setVisibility(View.GONE);
+
+
+            }
+        });
+        section3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                section1.setVisibility(View.VISIBLE);
+                section2.setVisibility(View.VISIBLE);
+                section3.setVisibility(View.GONE);
+                recieverlayoutinfos.setVisibility(View.GONE);
+                recieverlayoutadress.setVisibility(View.GONE);
+                senderlayoutadress.setVisibility(View.VISIBLE);
+
+            }
+        });
 
 
         Bundle extras = getIntent().getExtras();
