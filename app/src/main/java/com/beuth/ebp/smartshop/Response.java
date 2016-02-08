@@ -1,6 +1,5 @@
 package com.beuth.ebp.smartshop;
 
-
 public class Response {
     private String body;
     private String status;
