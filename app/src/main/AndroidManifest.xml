@@ -24,8 +24,11 @@
 
         </activity>
         <activity
-            android:name=".ProductDetailActivity" >
-
+            android:name=".ProductDetailActivity" android:parentActivityName="com.beuth.ebp.smartshop.MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.beuth.ebp.smartshop.MainActivity" >
+            </meta-data>
         </activity>
         <activity
             android:name=".OrderDetailActivity" android:parentActivityName="com.beuth.ebp.smartshop.MainActivity">
