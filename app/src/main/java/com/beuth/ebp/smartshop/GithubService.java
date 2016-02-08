@@ -13,6 +13,9 @@ public interface GithubService {
     @GET("/rest/api/get")
     Items listItems();
 
+    @GET("/rest/order/od")
+    Orders listOrder();
+
 
 
    @POST("/rest/api/getItems/1")

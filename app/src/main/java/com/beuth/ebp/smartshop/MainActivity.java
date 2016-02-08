@@ -27,8 +27,10 @@ import retrofit.client.Response;
 
 public class MainActivity extends AppCompatActivity {
     ListReposTask getListTask;
+    OrderTask getOrderTask;
     TabLayout tabLayout;
     FloatingActionButton floatingActionButton;
+    List<Order> reposer;
     String token;
 
     @Override
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         SharedPreferences settings = getSharedPreferences(LoginActiviy.PREFS_NAME, 0);
         token = settings.getString("userToken","");
-        Log.e("token on create ",token);
+        Log.e("token on create ", token);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -48,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Products"));
         tabLayout.addTab(tabLayout.newTab().setText("Orders"));
+        getOrderTask = new OrderTask();
+        getOrderTask.execute();
 
         getListTask = new ListReposTask();
         getListTask.execute();
@@ -60,12 +64,12 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage("Are you sure you want to add new Item?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(MainActivity.this,"add Item succes",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "add Item succes", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(MainActivity.this,"add Item canceled",Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "add Item canceled", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setIcon(android.R.drawable.ic_dialog_alert)
@@ -115,7 +119,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected List<Item> doInBackground(String... params) {
-            Log.e("before header",token);
+           // Log.e("before header",token);
             GithubService githubService = new RestAdapter.Builder()
                     .setRequestInterceptor(new RequestInterceptor() {
                         @Override
@@ -137,9 +141,9 @@ public class MainActivity extends AppCompatActivity {
                     .build().create(GithubService.class);
 
           //  Items repoList = githubService.getItemsList(token1);
-            Log.e("before list",token);
+         //   Log.e("before list",token);
             Items repoList = githubService.getItemsList(token);
-            Log.e("after list",""+repoList);
+          //  Log.e("after list",""+repoList);
             return repoList.getItems();
         }
 
@@ -148,7 +152,7 @@ public class MainActivity extends AppCompatActivity {
             super.onPostExecute(repos);
 
             final ViewPager viewPager = (ViewPager) findViewById(R.id.pager);
-            final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount(),repos);
+            final PagerAdapter adapter = new PagerAdapter (getSupportFragmentManager(), tabLayout.getTabCount(),repos, reposer);
             viewPager.setAdapter(adapter);
             viewPager.addOnPageChangeListener(new TabLayout.TabLayoutOnPageChangeListener(tabLayout));
             tabLayout.setOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -168,6 +172,45 @@ public class MainActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    class OrderTask extends AsyncTask<String, Void, List<Order>> {
+
+        @Override
+        protected List<Order> doInBackground(String... params) {
+            GithubService githubService = new RestAdapter.Builder()
+                    .setEndpoint(GithubService.ENDPOINT)
+                    .setErrorHandler(new ErrorHandler() {
+                        @Override
+                        public Throwable handleError(RetrofitError cause) {
+                            retrofit.client.Response r = cause.getResponse();
+                            if (r != null && r.getStatus() == 405) {
+                                Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
+                            }
+                            return cause;
+                        }
+                    })
+                    .build().create(GithubService.class);
+            try {
+                Orders repoList = githubService.listOrder();
+
+                return repoList.getOrders();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(List<Order> repos) {
+            try {
+                super.onPostExecute(repos);
+                reposer = repos;
+                Log.e("onPostExecute", "" + reposer);
+            } catch (Exception e) {
+
+            }
+        }
+
     }
 
 

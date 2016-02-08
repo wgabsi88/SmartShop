@@ -14,7 +14,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MyListFragment extends ListFragment implements OnItemClickListener {
+public class ProductFragment extends ListFragment implements OnItemClickListener {
 
 
 
