@@ -3,7 +3,6 @@ package com.beuth.ebp.smartshop;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -30,26 +29,26 @@ public class OrderDetailActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras !=null) {
             id = extras.getString("id");
-            Log.e("orderdetail", "" + id);
+           // Log.e("orderdetail", "" + id);
             productid = extras.getString("productid");
-            Log.e("productid",""+productid);
+           // Log.e("productid",""+productid);
             title = extras.getString("title");
-            Log.e("title",""+title);
+           // Log.e("title",""+title);
             quantity = extras.getString("quantity");
-            Log.e("quantity",""+quantity);
+           // Log.e("quantity",""+quantity);
             name = extras.getString("name");
-            Log.e("name",""+name);
+          //  Log.e("name",""+name);
             street = extras.getString("street");
-            Log.e("street",""+street);
+          //  Log.e("street",""+street);
             housenr = extras.getInt("housenr");
             zip = extras.getInt("zip");
-            Log.e("zip",""+zip);
+           // Log.e("zip",""+zip);
             city = extras.getString("city");
-            Log.e("city",""+city);
+          //  Log.e("city",""+city);
             email = extras.getString("email");
-            Log.e("email",""+email);
+          //  Log.e("email",""+email);
             phone = extras.getString("phone");
-            Log.e("phone",""+phone);
+          //  Log.e("phone",""+phone);
 
         }
         TextView txtid = (TextView)findViewById(R.id.textviewproductname);
