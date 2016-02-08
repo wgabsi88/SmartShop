@@ -3,7 +3,6 @@ package com.beuth.ebp.smartshop;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,7 @@ public class ProductFragment extends ListFragment implements OnItemClickListener
 
         args = getArguments();
         Items = (List<Item>) args.getSerializable("rowitems");
-        Log.e("Itemsfragment", "" + Items);
+     //   Log.e("Itemsfragment", "" + Items);
         return inflater.inflate(R.layout.list_product_fragment, null, false);
     }
 
