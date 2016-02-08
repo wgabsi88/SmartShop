@@ -26,6 +26,7 @@ import retrofit.client.Response;
 
 
 public class MainActivity extends AppCompatActivity {
+    public static final String PREFS_NAME = "LoginPrefs";
     ListReposTask getListTask;
     OrderTask getOrderTask;
     AddProductTask addProductTask;
@@ -33,15 +34,20 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton floatingActionButton;
     List<Order> reposer;
     String token;
+    String addItemResponse;
+    SharedPreferences settings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+
+
+
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingbtn);
 
-        SharedPreferences settings = getSharedPreferences(LoginActiviy.PREFS_NAME, 0);
+        settings = getSharedPreferences(PREFS_NAME, 0);
         token = settings.getString("userToken", "");
         Log.e("token on create ", token);
 
@@ -51,15 +57,21 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Products"));
         tabLayout.addTab(tabLayout.newTab().setText("Orders"));
+
         getOrderTask = new OrderTask();
         getOrderTask.execute();
 
         getListTask = new ListReposTask();
         getListTask.execute();
+     //   if(lastTab >= 0){
+           //selectLastSelectedTab(1);
+
+    //    }
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Add Item")
                         .setMessage("Are you sure you want to add new Item?")
