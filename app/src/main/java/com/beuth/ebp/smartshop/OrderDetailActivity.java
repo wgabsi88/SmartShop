@@ -20,6 +20,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     String email;
     String phone;
     Button detailProductButton;
+    Button confirmButton;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,8 +67,25 @@ public class OrderDetailActivity extends AppCompatActivity {
         detailProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderDetailActivity.this, ProductDetailActivity.class);
+                Intent intent = new Intent(OrderDetailActivity.this, OrderConfirmActivity.class);
                 intent.putExtra("id", "Fahrrad");
+                startActivity(intent);
+            }
+        });
+
+        confirmButton = (Button) findViewById(R.id.confirmbtn);
+        confirmButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(OrderDetailActivity.this, OrderConfirmActivity.class);
+
+                intent.putExtra("name", name);
+                intent.putExtra("street", street);
+                intent.putExtra("housenr", housenr);
+                intent.putExtra("zip", zip);
+                intent.putExtra("city", city);
+                intent.putExtra("email", email);
+                intent.putExtra("phone", phone);
                 startActivity(intent);
             }
         });
