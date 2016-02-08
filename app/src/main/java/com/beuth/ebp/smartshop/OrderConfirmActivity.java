@@ -1,13 +1,10 @@
 package com.beuth.ebp.smartshop;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
-public class OrderDetailActivity extends AppCompatActivity {
+public class OrderConfirmActivity extends AppCompatActivity {
     private String id;
     String productid;
     String title;
@@ -23,10 +20,10 @@ public class OrderDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.order_detail);
+        setContentView(R.layout.confirm_order);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
-        Bundle extras = getIntent().getExtras();
+        /*Bundle extras = getIntent().getExtras();
         if(extras !=null) {
             id = extras.getString("id");
            // Log.e("orderdetail", "" + id);
@@ -48,10 +45,10 @@ public class OrderDetailActivity extends AppCompatActivity {
             email = extras.getString("email");
           //  Log.e("email",""+email);
             phone = extras.getString("phone");
-          //  Log.e("phone",""+phone);
+          //  Log.e("phone",""+phone); */
 
         }
-        TextView txtid = (TextView)findViewById(R.id.textviewproductname);
+    /*    TextView txtid = (TextView)findViewById(R.id.textviewproductname);
         TextView txttitle = (TextView)findViewById(R.id.textviewproductname);
         TextView txtquantity = (TextView)findViewById(R.id.textviewproductquantity);
         TextView txtname = (TextView)findViewById(R.id.textviewrevievername);
@@ -66,7 +63,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         detailProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderDetailActivity.this, OrderConfirmActivity.class);
+                Intent intent = new Intent(OrderConfirmActivity.this, ProductDetailActivity.class);
                 intent.putExtra("id", "Fahrrad");
                 startActivity(intent);
             }
@@ -81,10 +78,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtzip.setText(""+zip);
         txtcity.setText(city);
         txtemail.setText(email);
-        txtphone.setText(phone);
+        txtphone.setText(phone); */
     }
 
 
 
-    }
+
 
