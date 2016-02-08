@@ -7,12 +7,12 @@ import retrofit.http.Path;
 
 public interface GithubService {
 
-    String ENDPOINT = "http://192.168.2.125:8080/SmartShopServer/rest";
+    String ENDPOINT = "http://192.168.2.123:8080/SmartShopServer/rest";
 
     @GET("/api/get")
     Items listItems();
 
-    @GET("/order/od")
+    @GET("/order/get")
     Orders listOrder();
 
     @GET("/order/confirm/{number}")

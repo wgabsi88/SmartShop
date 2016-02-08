@@ -8,7 +8,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class OrderDetailActivity extends AppCompatActivity {
-    private String id;
+    private String productTitle;
     String productid;
     String title;
     String quantity;
@@ -31,7 +31,7 @@ public class OrderDetailActivity extends AppCompatActivity {
         getSupportActionBar().setHomeButtonEnabled(true);
         Bundle extras = getIntent().getExtras();
         if(extras !=null) {
-            id = extras.getString("id");
+            productTitle = extras.getString("titleproduct");
            // Log.e("orderdetail", "" + id);
             productid = extras.getString("productid");
            // Log.e("productid",""+productid);
@@ -55,7 +55,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             position = extras.getInt("position");
 
         }
-        TextView txtid = (TextView)findViewById(R.id.textviewproductname);
+
         TextView txttitle = (TextView)findViewById(R.id.textviewproductname);
         TextView txtquantity = (TextView)findViewById(R.id.textviewproductquantity);
         TextView txtname = (TextView)findViewById(R.id.textviewrevievername);
@@ -70,8 +70,10 @@ public class OrderDetailActivity extends AppCompatActivity {
         detailProductButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(OrderDetailActivity.this, OrderConfirmActivity.class);
-                intent.putExtra("id", "Fahrrad");
+                Intent intent = new Intent(OrderDetailActivity.this, ProductDetailActivity.class);
+                intent.putExtra("title", productTitle);
+                intent.putExtra("description", "this is a simple product description");
+                intent.putExtra("quantity", "23" );
                 startActivity(intent);
             }
         });
@@ -94,7 +96,6 @@ public class OrderDetailActivity extends AppCompatActivity {
             }
         });
 
-        txtid.setText(id);
         txttitle.setText(title);
         txtquantity.setText(quantity);
         txtname.setText(name);

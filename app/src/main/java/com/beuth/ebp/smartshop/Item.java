@@ -6,6 +6,7 @@ public class Item implements Serializable {
 
     private static final long serialVersionUID = -7060210544600464481L;
     private String title;
+    private String description;
     private String quantity;
 
     public String getTitle() {
@@ -25,4 +26,11 @@ public class Item implements Serializable {
     }
 
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                     })
                     .build().create(GithubService.class);
-            Items repoList = githubService.getItemsList(token);
+            Items repoList = githubService.listItems();
             return repoList.getItems();
         }
 

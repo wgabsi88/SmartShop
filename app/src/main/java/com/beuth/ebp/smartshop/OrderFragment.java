@@ -50,7 +50,7 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
 
         Intent inent = new Intent(getActivity(), OrderDetailActivity.class);
 
-        inent.putExtra("id", Orders.get(position).getOrderid());
+        inent.putExtra("titleproduct", Orders.get(position).getOrderid());
         inent.putExtra("idproduct", Orders.get(position).getProductid());
         inent.putExtra("title", Orders.get(position).getTitle());
         inent.putExtra("quantity", Orders.get(position).getQuantity());
