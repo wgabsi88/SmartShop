@@ -3,14 +3,14 @@ package com.beuth.ebp.smartshop;
 import java.util.List;
 
 public class Orders {
-    private List<Order> orders;
+    private List<Order> order;
 
     public List<Order> getOrders() {
-        return orders;
+        return order;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setOrders(List<Order> order) {
+        this.order = order;
     }
 
 }

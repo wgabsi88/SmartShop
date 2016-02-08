@@ -36,7 +36,7 @@ public class LoginActiviy extends AppCompatActivity {
         setContentView(R.layout.activity_login);
         SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
         if (settings.getString("logged", "").equals("logged")) {
-            Intent intent = new Intent(getApplicationContext(),MainActivity.class);
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             finish();
         }
@@ -51,7 +51,7 @@ public class LoginActiviy extends AppCompatActivity {
         btngoeBay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(sessionIDBody != null && sessionIDBody != "null" ) {
+                if (sessionIDBody != null && sessionIDBody != "null") {
 
                     //String sessionID = "qqsDAA**9fa7080e1520a471d237f6c7fffff5da";
                     String ruName = "beuth-beuth5863-6795--zmfzuz";
@@ -65,7 +65,7 @@ public class LoginActiviy extends AppCompatActivity {
                     txtgoeBay.setVisibility(View.GONE);
                     btngoShop.setVisibility(View.VISIBLE);
                     txtgoShop.setVisibility(View.VISIBLE);
-                }else {
+                } else {
                     Toast.makeText(getApplicationContext(), "please click again", Toast.LENGTH_SHORT).show();
 
 
@@ -93,7 +93,7 @@ public class LoginActiviy extends AppCompatActivity {
                         public Throwable handleError(RetrofitError cause) {
                             retrofit.client.Response r = cause.getResponse();
                             if (r != null && r.getStatus() == 405) {
-                                      Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
                             }
                             return cause;
                         }
@@ -101,26 +101,27 @@ public class LoginActiviy extends AppCompatActivity {
                     .build().create(GithubService.class);
             try {
                 return githubService.sessionIDResponse();
-            }catch (Exception e){
+            } catch (Exception e) {
                 return null;
             }
         }
 
         @Override
         protected void onPostExecute(Response repos) {
-            try{
+            try {
                 super.onPostExecute(repos);
                 sessionIDBody = repos.getBody();
                 Log.e("SessionIDBody: ", "" + repos.getBody());
-            }catch (Exception e){
-                sessionIDBody = null ;
+            } catch (Exception e) {
+                sessionIDBody = null;
             }
-            if(sessionIDBody == null){
+            if (sessionIDBody == null) {
                 Toast.makeText(getApplicationContext(), "can not get session ID, fix internet and try again", Toast.LENGTH_LONG).show();
                 startActivity(getIntent());
             }
         }
     }
+
     class FetchToken extends AsyncTask<String, Void, Response> {
 
         @Override
@@ -138,7 +139,7 @@ public class LoginActiviy extends AppCompatActivity {
                     .build().create(GithubService.class);
             try {
                 return githubService.getTokenResponse(sessionIDBody);
-            }catch (Exception e){
+            } catch (Exception e) {
                 return null;
             }
         }
@@ -152,21 +153,21 @@ public class LoginActiviy extends AppCompatActivity {
                 tokensucces = repos.getStatus();
                 Log.e("token body", "" + repos.getBody());
                 Log.e("token status", "" + repos.getStatus());
-            }catch (Exception e){
+            } catch (Exception e) {
                 token = null;
                 tokensucces = null;
             }
-            if (token == null || token.equals("null")){
-                Toast.makeText(getApplicationContext(),"can not get token please login and agree",Toast.LENGTH_LONG).show();
+            if (token == null || token.equals("null")) {
+                Toast.makeText(getApplicationContext(), "can not get token please login and agree", Toast.LENGTH_LONG).show();
                 btngoeBay.setVisibility(View.VISIBLE);
                 txtgoeBay.setVisibility(View.VISIBLE);
                 btngoShop.setVisibility(View.GONE);
                 txtgoShop.setVisibility(View.GONE);
-            }else {
+            } else {
                 SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
                 SharedPreferences.Editor editor = settings.edit();
                 editor.putString("logged", "logged");
-                editor.putString("userToken",token);
+                editor.putString("userToken", token);
                 editor.commit();
                 Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.putExtra("userToken", token);
@@ -175,5 +176,7 @@ public class LoginActiviy extends AppCompatActivity {
 
         }
     }
+
+
 
 }
