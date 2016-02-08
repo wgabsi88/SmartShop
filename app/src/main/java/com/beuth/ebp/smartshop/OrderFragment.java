@@ -36,7 +36,7 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
         super.onActivityCreated(savedInstanceState);
         rowItems = new ArrayList<RowItem>();
         for (int i = 0; i < Orders.size(); i++) {
-            RowItem items = new RowItem(Orders.get(i).getTitle(), Orders.get(i).getQuantity());
+            RowItem items = new RowItem(Orders.get(i).getName(), Orders.get(i).getQuantity());
             rowItems.add(items);
         }
 
@@ -50,7 +50,18 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
         Toast.makeText(getActivity(), rowItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 
         Intent inent = new Intent(getActivity(), OrderDetailActivity.class);
-        inent.putExtra("id", rowItems.get(position).getTitle());
+
+        inent.putExtra("id", Orders.get(position).getOrderid());
+        inent.putExtra("idproduct", Orders.get(position).getProductid());
+        inent.putExtra("title", Orders.get(position).getTitle());
+        inent.putExtra("quantity", Orders.get(position).getQuantity());
+        inent.putExtra("name", Orders.get(position).getName());
+        inent.putExtra("street", Orders.get(position).getStreet());
+        inent.putExtra("housenr", Orders.get(position).getHousenr());
+        inent.putExtra("zip", Orders.get(position).getZip());
+        inent.putExtra("city", Orders.get(position).getCity());
+        inent.putExtra("email", Orders.get(position).getEmail());
+        inent.putExtra("phone", Orders.get(position).getPhone());
         getActivity().startActivity(inent);
     }
 }
