@@ -22,6 +22,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     String phone;
     Button detailProductButton;
     Button confirmButton;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,7 +52,7 @@ public class OrderDetailActivity extends AppCompatActivity {
           //  Log.e("email",""+email);
             phone = extras.getString("phone");
           //  Log.e("phone",""+phone);
-            position = extras.getInt("position");
+
         }
         TextView txtid = (TextView)findViewById(R.id.textviewproductname);
         TextView txttitle = (TextView)findViewById(R.id.textviewproductname);
