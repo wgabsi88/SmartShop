@@ -1,6 +1,7 @@
 package com.beuth.ebp.smartshop;
 
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -167,6 +168,14 @@ public class MainActivity extends AppCompatActivity {
 
     class ListReposTask extends AsyncTask<String, Void, List<Item>> {
 
+        ProgressDialog progressDialog = new ProgressDialog(MainActivity.this);
+
+        @Override
+        protected void onPreExecute() {
+            progressDialog.setMessage("Updating");
+            progressDialog.show();
+        }
+
         @Override
         protected List<Item> doInBackground(String... params) {
             // Log.e("before header",token);
@@ -215,6 +224,7 @@ public class MainActivity extends AppCompatActivity {
                 public void onTabReselected(TabLayout.Tab tab) {
                 }
             });
+            progressDialog.dismiss();
         }
     }
 

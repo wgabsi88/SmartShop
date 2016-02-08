@@ -55,7 +55,7 @@ public class CustomOrderAdapter extends BaseAdapter {
                 txtstatus.setBackgroundColor(Color.parseColor("#FF12F121"));
                 txtstatus.invalidate();
                 break;
-            case "inactive":
+            case "done":
                 System.out.println("Very good grade");
                 txtstatus.setBackgroundColor(Color.parseColor("#FFCA1C1C"));
                 txtstatus.invalidate();
