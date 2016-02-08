@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
-public class Produkt_detail extends AppCompatActivity {
+public class ProductDetailActivity extends AppCompatActivity {
     String value;
 
     @Override

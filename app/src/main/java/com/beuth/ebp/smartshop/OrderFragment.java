@@ -49,8 +49,7 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Toast.makeText(getActivity(), rowItems.get(position).getTitle(), Toast.LENGTH_SHORT).show();
 
-        Intent inent = new Intent(getActivity(), Order_detail.class);
-        String aaa = "" + (position + 1);
+        Intent inent = new Intent(getActivity(), OrderDetailActivity.class);
         inent.putExtra("id", rowItems.get(position).getTitle());
         getActivity().startActivity(inent);
     }
