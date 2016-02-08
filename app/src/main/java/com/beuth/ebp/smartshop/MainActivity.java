@@ -28,10 +28,12 @@ import retrofit.client.Response;
 public class MainActivity extends AppCompatActivity {
     ListReposTask getListTask;
     OrderTask getOrderTask;
+    AddProductTask addProductTask;
     TabLayout tabLayout;
     FloatingActionButton floatingActionButton;
     List<Order> reposer;
     String token;
+    String addItemResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +66,9 @@ public class MainActivity extends AppCompatActivity {
                         .setMessage("Are you sure you want to add new Item?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(MainActivity.this, "add Item succes", Toast.LENGTH_SHORT).show();
+                                addProductTask = new AddProductTask();
+                                addProductTask.execute();
+                                //Toast.makeText(MainActivity.this, "add Item succes", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -84,8 +88,6 @@ public class MainActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
-
     private Boolean exit = false;
 
     @Override
@@ -138,10 +140,7 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .build().create(GithubService.class);
 
-            //  Items repoList = githubService.getItemsList(token1);
-            //   Log.e("before list",token);
             Items repoList = githubService.getItemsList(token);
-            //  Log.e("after list",""+repoList);
             return repoList.getItems();
         }
 
@@ -183,8 +182,7 @@ public class MainActivity extends AppCompatActivity {
                             if (r != null && r.getStatus() == 405) {
                                 Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
                             }
-                            return cause;
-                        }
+                            return cause;                        }
                     })
                     .build().create(GithubService.class);
             try {
@@ -203,6 +201,47 @@ public class MainActivity extends AppCompatActivity {
                 Log.e("onPostExecute", "" + reposer);
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+        }
+    }
+
+    class AddProductTask extends AsyncTask<String, Void, com.beuth.ebp.smartshop.Response> {
+
+        @Override
+        protected com.beuth.ebp.smartshop.Response doInBackground(String... params) {
+            GithubService githubService = new RestAdapter.Builder()
+                    .setEndpoint(GithubService.ENDPOINT)
+                    .setErrorHandler(new ErrorHandler() {
+                        @Override
+                        public Throwable handleError(RetrofitError cause) {
+                            retrofit.client.Response r = cause.getResponse();
+                            if (r != null && r.getStatus() == 405) {
+                                Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
+                            }
+                            return cause;
+                        }
+                    })
+                    .build().create(GithubService.class);
+            try {
+                return githubService.getAddItemResponse();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(com.beuth.ebp.smartshop.Response repos) {
+            try {
+                super.onPostExecute(repos);
+                addItemResponse = repos.getBody();
+                Log.e("Product ID: ", "" + repos.getBody());
+                Toast.makeText(getApplicationContext(),"add product succes with ID: " + addItemResponse, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                addItemResponse = null;
+            }
+            if (addItemResponse == null) {
+                Toast.makeText(getApplicationContext(), "can not add Product, see Connection and try again", Toast.LENGTH_SHORT).show();
+                startActivity(getIntent());
             }
         }
     }
