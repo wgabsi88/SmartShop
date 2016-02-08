@@ -26,28 +26,22 @@ import retrofit.client.Response;
 
 
 public class MainActivity extends AppCompatActivity {
-    public static final String PREFS_NAME = "LoginPrefs";
     ListReposTask getListTask;
     OrderTask getOrderTask;
+    AddProductTask addProductTask;
     TabLayout tabLayout;
     FloatingActionButton floatingActionButton;
     List<Order> reposer;
     String token;
-    private int  selectedTabPosition;
-    int data;
-    SharedPreferences settings ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-
-
-
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingbtn);
 
-        settings = getSharedPreferences(PREFS_NAME, 0);
+        SharedPreferences settings = getSharedPreferences(LoginActiviy.PREFS_NAME, 0);
         token = settings.getString("userToken", "");
         Log.e("token on create ", token);
 
@@ -57,27 +51,23 @@ public class MainActivity extends AppCompatActivity {
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Products"));
         tabLayout.addTab(tabLayout.newTab().setText("Orders"));
-
         getOrderTask = new OrderTask();
         getOrderTask.execute();
 
         getListTask = new ListReposTask();
         getListTask.execute();
-     //   if(lastTab >= 0){
-           //selectLastSelectedTab(1);
-
-    //    }
 
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 new AlertDialog.Builder(MainActivity.this)
                         .setTitle("Add Item")
                         .setMessage("Are you sure you want to add new Item?")
                         .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                Toast.makeText(MainActivity.this, "add Item succes", Toast.LENGTH_SHORT).show();
+                                addProductTask = new AddProductTask();
+                                addProductTask.execute();
+                                //Toast.makeText(MainActivity.this, "add Item succes", Toast.LENGTH_SHORT).show();
                             }
                         })
                         .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -89,8 +79,6 @@ public class MainActivity extends AppCompatActivity {
                         .show();
             }
         });
-
-
     }
 
     public void closeApp() {
@@ -99,8 +87,6 @@ public class MainActivity extends AppCompatActivity {
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
     }
-
-
     private Boolean exit = false;
 
     @Override
@@ -121,55 +107,17 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    @Override
-     public void onStart() {
-        super.onStart();
-      //  settings = getSharedPreferences(PREFS_NAME, 0);
-        int lastTab = settings.getInt("last", -1);
-
-        Log.e("onStart", "" + lastTab);
-    }
-
-    @Override
-    public void onDestroy() {
-        super.onDestroy();
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putInt("last", selectedTabPosition);
-
-        editor.commit();
-
-        Log.e("onDestroy", "" + selectedTabPosition);
-    }
-
-
     @Override
     public void onResume() {
-        super.onResume();
-        // Always call the superclass method first
-
+        super.onResume();  // Always call the superclass method first
         getListTask = new ListReposTask();
         getListTask.execute();
-
-        Log.e("onResume", ""  );
-
     }
-    @Override
-    public void onPause() {
-        super.onPause();
-        selectedTabPosition = tabLayout.getSelectedTabPosition();
-        SharedPreferences.Editor editor = settings.edit();
-        editor.putString("logged", "logged");
-        editor.putString("userToken", token);
-        editor.commit();
-        Log.e("selected last tab",""+selectedTabPosition);
-    }
+
     class ListReposTask extends AsyncTask<String, Void, List<Item>> {
-        int lastTab;
+
         @Override
         protected List<Item> doInBackground(String... params) {
-            settings = getSharedPreferences(PREFS_NAME, 0);
-            lastTab = settings.getInt("last", -1);
             // Log.e("before header",token);
             GithubService githubService = new RestAdapter.Builder()
                     .setRequestInterceptor(new RequestInterceptor() {
@@ -191,10 +139,7 @@ public class MainActivity extends AppCompatActivity {
                     })
                     .build().create(GithubService.class);
 
-            //  Items repoList = githubService.getItemsList(token1);
-            //   Log.e("before list",token);
             Items repoList = githubService.getItemsList(token);
-            //  Log.e("after list",""+repoList);
             return repoList.getItems();
         }
 
@@ -220,8 +165,6 @@ public class MainActivity extends AppCompatActivity {
                 public void onTabReselected(TabLayout.Tab tab) {
                 }
             });
-
-
         }
     }
 
@@ -238,8 +181,7 @@ public class MainActivity extends AppCompatActivity {
                             if (r != null && r.getStatus() == 405) {
                                 Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
                             }
-                            return cause;
-                        }
+                            return cause;                        }
                     })
                     .build().create(GithubService.class);
             try {
@@ -255,8 +197,6 @@ public class MainActivity extends AppCompatActivity {
             try {
                 super.onPostExecute(repos);
                 reposer = repos;
-               // TabLayout.Tab selectedTab = tabLayout.getTabAt(1);
-             //   selectedTab.select();
                 Log.e("onPostExecute", "" + reposer);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -264,34 +204,44 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void selectLastSelectedTab(int selectedTabPosition) {
-        if (selectedTabPosition >= 0) {
-            TabLayout.Tab selectedTab = tabLayout.getTabAt(selectedTabPosition);
-            selectedTab.select();
+    class AddProductTask extends AsyncTask<String, Void, com.beuth.ebp.smartshop.Response> {
+
+        @Override
+        protected com.beuth.ebp.smartshop.Response doInBackground(String... params) {
+            GithubService githubService = new RestAdapter.Builder()
+                    .setEndpoint(GithubService.ENDPOINT)
+                    .setErrorHandler(new ErrorHandler() {
+                        @Override
+                        public Throwable handleError(RetrofitError cause) {
+                            retrofit.client.Response r = cause.getResponse();
+                            if (r != null && r.getStatus() == 405) {
+                                Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
+                            }
+                            return cause;
+                        }
+                    })
+                    .build().create(GithubService.class);
+            try {
+                return githubService.getAddItemResponse();
+            } catch (Exception e) {
+                return null;
+            }
+        }
+
+        @Override
+        protected void onPostExecute(com.beuth.ebp.smartshop.Response repos) {
+            try {
+                super.onPostExecute(repos);
+                addItemResponse = repos.getBody();
+                Log.e("Product ID: ", "" + repos.getBody());
+                Toast.makeText(getApplicationContext(),"add product succes with ID: " + addItemResponse, Toast.LENGTH_SHORT).show();
+            } catch (Exception e) {
+                addItemResponse = null;
+            }
+            if (addItemResponse == null) {
+                Toast.makeText(getApplicationContext(), "can not add Product, see Connection and try again", Toast.LENGTH_SHORT).show();
+                startActivity(getIntent());
+            }
         }
     }
-/*
-    @Override
-    public void onSaveInstanceState(Bundle savedInstanceState) {
-        super.onSaveInstanceState(savedInstanceState);
-        // Save UI state changes to the savedInstanceState.
-        // This bundle will be passed to onCreate if the process is
-        // killed and restarted.
-
-        savedInstanceState.putInt("last", selectedTabPosition);
-        Log.e("onsave", "" + selectedTabPosition);
-
-        // etc.
-    }
-    @Override
-    public void onRestoreInstanceState(Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        // Restore UI state from the savedInstanceState.
-        // This bundle has also been passed to onCreate.
-
-        int selectedTabPosition = savedInstanceState.getInt("last");
-
-        Log.e("onrestore", "" + selectedTabPosition);
-
-    } */
 }
