@@ -36,7 +36,7 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
         rowItems = new ArrayList<OrderItem>();
         for (int i = 0; i < Orders.size(); i++) {
 
-            OrderItem items = new OrderItem(Orders.get(i).getOrderid(), Orders.get(i).getStatus());
+            OrderItem items = new OrderItem(Orders.get(i).getTitle(), Orders.get(i).getStatus());
             rowItems.add(items);
         }
 
