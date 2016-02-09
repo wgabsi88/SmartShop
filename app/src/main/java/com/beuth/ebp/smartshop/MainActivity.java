@@ -6,19 +6,24 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.Configuration;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import java.util.List;
@@ -44,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
     String itemDescitpion;
     String itemStartPrice;
     SharedPreferences settings;
+    private ListView mDrawerList;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
+    String[] osArray =  new String[2];
+    AlertDialog.Builder builder ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,13 +61,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         floatingActionButton = (FloatingActionButton) findViewById(R.id.floatingbtn);
-
+        mDrawerList = (ListView)findViewById(R.id.navList);
+        mDrawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
+        builder = new AlertDialog.Builder(this);
         settings = getSharedPreferences(PREFS_NAME, 0);
         token = settings.getString("userToken", "");
         Log.e("token on create ", token);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+       // Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+     //   setSupportActionBar(toolbar);
+        addDrawerItems();
+        setupDrawer();
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
 
         tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         tabLayout.addTab(tabLayout.newTab().setText("Products"));
@@ -323,5 +339,111 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(getIntent());
             }
         }
+    }
+
+
+    private void addDrawerItems() {
+        osArray = new String[]{"Abmelden", "Impressum"};
+        Integer[] imageId = {
+                R.drawable.logouticon,
+                R.drawable.info
+
+
+        };
+        CustomNavRow adapter = new
+                CustomNavRow(MainActivity.this, osArray, imageId);
+
+        mDrawerList.setAdapter(adapter);
+
+        mDrawerList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                switch(position) {
+                    case 0:
+                        builder.setTitle("Abmelden")
+                                .setMessage("Sind Sie sicher, dass Sie sich abmelden wollen?")
+                                .setIcon(android.R.drawable.ic_dialog_alert)
+                                .setPositiveButton("Ja", new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog, int which) {
+
+                                       SharedPreferences settings = getSharedPreferences(PREFS_NAME, 0);
+                                        SharedPreferences.Editor editor = settings.edit();
+                                        editor.clear();
+                                        editor.commit();
+                                        Intent homeIntent = new Intent(getApplicationContext(),LoginActiviy.class);
+                                        startActivity(homeIntent);
+
+                                    }
+                                })
+                                .setNegativeButton("Nein", null)						//Do nothing on no
+                                .show();
+
+                        break;
+                    case 1:
+                        Toast.makeText(MainActivity.this, "SmartShop", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(MainActivity.this, "you didnt clicked", Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+    }
+
+    private void setupDrawer() {
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, R.string.drawer_open, R.string.drawer_close) {
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                getSupportActionBar().setTitle("SmartShop");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+                getSupportActionBar().setTitle("SmartShop");
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        // Sync the toggle state after onRestoreInstanceState has occurred.
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
+    }
+
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks CustomNavRowhere. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+        int id = item.getItemId();
+
+        //noinspection SimplifiableIfStatement
+        if (id == R.id.action_settings) {
+            return true;
+        }
+
+        // Activate the navigation drawer toggle
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }
