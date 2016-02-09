@@ -16,7 +16,7 @@ public interface GithubService {
     Orders listOrder();
 
     @GET("/order/confirm/{number}")
-    Void ConfirmOrder(@Path("number") int number);
+    Response ConfirmOrder(@Path("number") int number);
 
     @POST("/api/getItems")
     Items getItemsList(@Header("token") String token);

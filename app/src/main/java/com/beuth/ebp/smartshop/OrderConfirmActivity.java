@@ -1,5 +1,7 @@
 package com.beuth.ebp.smartshop;
 
+import android.app.ProgressDialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -18,6 +20,10 @@ import retrofit.RetrofitError;
 public class OrderConfirmActivity extends AppCompatActivity {
 
     public static final String PREFS_NAME = "LoginPrefs";
+
+    String confirmOrderBody;
+    String confirmOrderSuccess;
+
     String name;
     String street;
     int housenr;
@@ -36,7 +42,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
     EditText txtsstr;
     EditText txtscity;
     EditText txtszip;
-    OrderTask getOrderTask;
+    ConfirmOrderTask getOrderTask;
     LinearLayout section1;
     LinearLayout section2;
     LinearLayout section3;
@@ -91,7 +97,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 recieverlayoutadress.setVisibility(View.GONE);
                 section2.setVisibility(View.GONE);
                 recieverlayoutinfos.setVisibility(View.VISIBLE);
-
             }
         });
         continue2.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +106,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 recieverlayoutinfos.setVisibility(View.GONE);
                 section3.setVisibility(View.GONE);
                 senderlayoutadress.setVisibility(View.VISIBLE);
-
             }
         });
 
@@ -114,7 +118,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 section3.setVisibility(View.VISIBLE);
                 senderlayoutadress.setVisibility(View.GONE);
                 recieverlayoutadress.setVisibility(View.VISIBLE);
-
             }
         });
         section2.setOnClickListener(new View.OnClickListener() {
@@ -126,8 +129,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 section2.setVisibility(View.GONE);
                 section3.setVisibility(View.VISIBLE);
                 senderlayoutadress.setVisibility(View.GONE);
-
-
             }
         });
         section3.setOnClickListener(new View.OnClickListener() {
@@ -139,7 +140,6 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 recieverlayoutinfos.setVisibility(View.GONE);
                 recieverlayoutadress.setVisibility(View.GONE);
                 senderlayoutadress.setVisibility(View.VISIBLE);
-
             }
         });
 
@@ -147,23 +147,14 @@ public class OrderConfirmActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             name = extras.getString("name");
-            //  Log.e("name",""+name);
             street = extras.getString("street");
-            //  Log.e("street",""+street);
             housenr = extras.getInt("housenr");
             zip = extras.getInt("zip");
-            // Log.e("zip",""+zip);
             city = extras.getString("city");
-            //  Log.e("city",""+city);
             email = extras.getString("email");
-            //  Log.e("email",""+email);
             phone = extras.getString("phone");
-            //  Log.e("phone",""+phone); */
             position = extras.getInt("position");
-
         }
-
-
 
         txtrstreet.setText(street);
         txtrcity.setText(city);
@@ -172,31 +163,29 @@ public class OrderConfirmActivity extends AppCompatActivity {
         txtmobile.setText(phone);
         txtemail.setText(email);
 
-
-
         confirmButton = (Button) findViewById(R.id.confirmbtn);
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //    Intent intent = new Intent(OrderConfirmActivity.this, OrderConfirmActivity.class);
-                getOrderTask = new OrderTask();
+                getOrderTask = new ConfirmOrderTask();
                 getOrderTask.execute();
-             //   startActivity(intent);
-                SharedPreferences.Editor editor = settings.edit();
-                editor.putString("senderstr", txtsstr.getText().toString());
-                editor.putString("sendercity", txtscity.getText().toString());
-                editor.putString("senderzip", txtszip.getText().toString());
-                editor.commit();
-
             }
         });
 
     }
 
-    class OrderTask extends AsyncTask<String, Void, Void> {
+    class ConfirmOrderTask extends AsyncTask<String, Void, Response> {
+
+        ProgressDialog progressDialog = new ProgressDialog(OrderConfirmActivity.this);
 
         @Override
-        protected Void doInBackground(String... params) {
+        protected void onPreExecute() {
+            progressDialog.setMessage("Confirming Order");
+            progressDialog.show();
+        }
+
+        @Override
+        protected Response doInBackground(String... params) {
             GithubService githubService = new RestAdapter.Builder()
                     .setEndpoint(GithubService.ENDPOINT)
                     .setErrorHandler(new ErrorHandler() {
@@ -206,25 +195,35 @@ public class OrderConfirmActivity extends AppCompatActivity {
                             if (r != null && r.getStatus() == 405) {
                                 Toast.makeText(getApplicationContext(), "Impossible d'effectuer cette action", Toast.LENGTH_SHORT).show();
                             }
-                            return cause;                        }
+                            return cause;
+                        }
                     })
                     .build().create(GithubService.class);
             try {
-                 githubService.ConfirmOrder(position);
-                return null;
+
+                return githubService.ConfirmOrder(position);
             } catch (Exception e) {
                 return null;
             }
         }
 
         @Override
-        protected void onPostExecute(Void params) {
+        protected void onPostExecute(Response params) {
             try {
                 super.onPostExecute(params);
-
-                Log.e("onPostExecute", "" );
+                confirmOrderBody = params.getBody();
+                confirmOrderSuccess = params.getStatus();
+                Log.e("onPostExecute", "");
             } catch (Exception e) {
-                e.printStackTrace();
+                confirmOrderBody = null;
+            }
+
+            if (confirmOrderBody != null && !confirmOrderBody.equals("null")){
+                Toast.makeText(getApplicationContext(), "confirm order for : " + name + " with success", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(OrderConfirmActivity.this, MainActivity.class);
+                startActivity(intent);
+            }else {
+                Toast.makeText(getApplicationContext(), "error when confirming order", Toast.LENGTH_SHORT).show();
             }
         }
     }
