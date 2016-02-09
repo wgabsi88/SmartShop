@@ -13,20 +13,24 @@
 
     <Button
         android:id="@+id/buttongotoeBay"
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1.74"
-        android:background="#ffffff"
-        android:text="Go To eBay" />
+        android:text="Go To eBay"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="25dp"
+        android:textColor="#FFFFFF"/>
 
     <Button
         android:id="@+id/buttongotosmartshop"
-        android:layout_width="200dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_weight="1.74"
-        android:background="#ffffff"
+        android:background="@color/colorPrimaryDark"
+        android:textSize="25dp"
+        android:textColor="#FFFFFF"
         android:text="go to smartshop"
         android:visibility="gone" />
 
@@ -37,19 +41,21 @@
 
     <TextView
         android:id="@+id/textgotoebay"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="your token is not valid, please click on go to eby, sign in and come back to app"
+        android:layout_gravity="center_horizontal"
+        android:text="Your token is not valid, please go to ebay, sign in and come back to SmartShop App."
         android:textColor="#ffffff"
         android:textSize="20dp" />
 
     <TextView
         android:id="@+id/textgotosmartshop"
-        android:layout_width="wrap_content"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:padding="10dp"
-        android:text="if you have accepted click on go to smartshop to use ur shop"
+        android:layout_gravity="center_horizontal"
+        android:text="If you have accepted click on go to smartshop to use you shop."
         android:textColor="#ffffff"
         android:textSize="20dp"
         android:visibility="gone" />

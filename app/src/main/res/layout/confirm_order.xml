@@ -12,7 +12,7 @@
         <LinearLayout
             android:id="@+id/sectionhide1"
             android:layout_width="match_parent"
-            android:layout_height="150px"
+            android:layout_height="70dp"
             android:orientation="vertical"
             android:padding="10dp"
             android:visibility="gone">
@@ -20,9 +20,9 @@
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/border"
                 android:gravity="center"
                 android:text="1-Reciever Adress"
+                android:background="#D2D2D2"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
 
@@ -108,26 +108,28 @@
 
             <Button
                 android:id="@+id/blockbtn1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="Continue" />
+                android:text="Continue"
+                android:textColor="#FFFFFF"
+                android:background="@color/colorPrimaryDark"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/sectionhide2"
             android:layout_width="match_parent"
-            android:layout_height="150px"
+            android:layout_height="70dp"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="8dp"
             android:visibility="visible">
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/border"
                 android:gravity="center"
                 android:text="2-Reciever Infos"
+                android:background="#D2D2D2"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
 
@@ -196,26 +198,28 @@
 
             <Button
                 android:id="@+id/blockbtn2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:text="continue" />
+                android:text="continue"
+                android:textColor="#FFFFFF"
+                android:background="@color/colorPrimaryDark"/>
         </LinearLayout>
 
         <LinearLayout
             android:id="@+id/sectionhide3"
             android:layout_width="match_parent"
-            android:layout_height="150px"
+            android:layout_height="70dp"
             android:orientation="vertical"
-            android:padding="10dp"
+            android:padding="8dp"
             android:visibility="visible">
 
             <TextView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/border"
                 android:gravity="center"
                 android:text="3-Sender Adress"
+                android:background="#D2D2D2"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
 
@@ -300,11 +304,14 @@
 
         <Button
             android:id="@+id/confirmbtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
             android:layout_gravity="center"
             android:paddingTop="10dp"
-            android:text="Confirm" />
+            android:text="Confirm"
+            android:textColor="#FFFFFF"
+            android:textSize="30dp"
+            android:background="@color/colorPrimaryDark"/>
     </LinearLayout>
 
 </ScrollView>

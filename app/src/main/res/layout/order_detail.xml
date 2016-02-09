@@ -8,13 +8,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"></LinearLayout>
+        android:layout_height="10dp"></LinearLayout>
 
     <LinearLayout
         android:layout_width="330dp"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#F2F2F2"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -36,21 +36,23 @@
 
         <Button
             android:id="@+id/detailproductbutton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="130dp"
+            android:layout_height="30dp"
             android:layout_gravity="end"
-            android:text="Detail Product" />
+            android:text="Detail Product"
+            android:textColor="#FFFFFF"
+            android:background="@color/colorPrimaryDark"/>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"></LinearLayout>
+        android:layout_height="5dp"></LinearLayout>
 
     <LinearLayout
         android:layout_width="330dp"
         android:layout_height="50dp"
         android:layout_gravity="center"
-        android:background="#F2F2F2"
+        android:background="#FFFFFF"
         android:orientation="horizontal"
         android:padding="5dp">
 
@@ -73,13 +75,13 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"></LinearLayout>
+        android:layout_height="5dp"></LinearLayout>
 
     <LinearLayout
         android:layout_width="330dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="#F2F2F2"
+        android:background="#FFFFFF"
         android:orientation="vertical"
         android:padding="5dp">
 
@@ -222,12 +224,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"></LinearLayout>
+        android:layout_height="5dp"></LinearLayout>
 
     <Button
         android:id="@+id/confirmbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="330dp"
+        android:layout_height="60dp"
         android:layout_gravity="center"
-        android:text="Edit" />
+        android:text="Execute Order"
+        android:textSize="20dp"
+        android:textColor="#FFFFFF"
+        android:background="@color/colorPrimaryDark"/>
 </LinearLayout>
