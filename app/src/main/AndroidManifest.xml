@@ -38,11 +38,8 @@
             </meta-data>
         </activity>
         <activity
-            android:name=".OrderConfirmActivity" android:parentActivityName="com.beuth.ebp.smartshop.OrderDetailActivity">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.beuth.ebp.smartshop.OrderDetailActivity" >
-            </meta-data>
+            android:name=".OrderConfirmActivity"  >
+
         </activity>
     </application>
 
