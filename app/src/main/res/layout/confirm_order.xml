@@ -2,339 +2,309 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
-<LinearLayout
-    android:orientation="vertical"
-    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:id="@+id/sectionhide1"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="150px"
-        android:visibility="gone"
-        android:padding="10dp">
-
-        <TextView
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="1-Reciever Adress"
-            android:background="@drawable/border"
-            />
-        </LinearLayout>
-    <LinearLayout
-        android:id="@+id/sectionrecieveradress"
-        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="1-Reciever Adress"
-        android:id="@+id/section1"
-        />
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat"
         android:orientation="vertical">
 
-        <EditText
-
-            android:id="@+id/str"
+        <LinearLayout
+            android:id="@+id/sectionhide1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Hause and HauseNr"
-            android:imeActionLabel="str"
-            android:imeOptions="actionUnspecified"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true" />
+            android:layout_height="150px"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
 
-    </android.support.design.widget.TextInputLayout>
-
-
-    <LinearLayout
-        android:id="@+id/block"
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content">
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat"
-        android:orientation="vertical"
-        android:layout_weight="1">
-
-        <EditText
-
-            android:id="@+id/city"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="City"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"
-            />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat"
-        android:orientation="horizontal"
-        android:layout_weight="1">
-
-        <EditText
-
-            android:id="@+id/zip"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Zip"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"
-            />
-
-    </android.support.design.widget.TextInputLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:text="1-Reciever Adress"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
         </LinearLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Continue"
-            android:id="@+id/blockbtn1"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/sectionhide2"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="150px"
-        android:visibility="visible"
-        android:padding="10dp">
-
-        <TextView
-android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="2-Reciever Infos"
-            android:background="@drawable/border"
-
-            />
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
-        android:id="@+id/sectionrecieverinfos"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:padding="10dp">
-    <TextView
-        android:paddingTop="15dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="2-Reciever Infos"
-        android:id="@+id/section2" />
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat"
-
-        >
-
-        <EditText
-
-            android:id="@+id/name"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Name"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"
-            />
-
-    </android.support.design.widget.TextInputLayout>
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat"
-
-        >
-
-        <EditText
-
-            android:id="@+id/email"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Email"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"
-            />
-
-    </android.support.design.widget.TextInputLayout>
-
-
-
-
-    <android.support.design.widget.TextInputLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        app:hintTextAppearance="@style/TextAppearance.AppCompat"
-
-        >
-
-        <EditText
-
-            android:id="@+id/mobile"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:hint="Mobile"
-            android:inputType="text"
-            android:maxLines="1"
-            android:singleLine="true"
-            />
-
-    </android.support.design.widget.TextInputLayout>
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="continue"
-            android:id="@+id/blockbtn2"
-            android:layout_gravity="center_horizontal" />
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/sectionhide3"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="150px"
-        android:visibility="visible"
-        android:padding="10dp">
-
-        <TextView
-            android:gravity="center"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="3-Sender Adress"
-            android:background="@drawable/border"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/sectionsenderadress"
-        android:orientation="vertical"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:visibility="gone"
-        android:padding="10dp">
-
-
-        <TextView
-            android:paddingTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:text="3-Sender Infos"
-            android:id="@+id/section3"
-            />
-
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:hintTextAppearance="@style/TextAppearance.AppCompat"
-            android:orientation="vertical">
-
-            <EditText
-
-                android:id="@+id/senderstr"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Hause and HauseNr"
-                android:imeActionLabel="str"
-                android:imeOptions="actionUnspecified"
-                android:inputType="text"
-                android:maxLines="1"
-                android:singleLine="true" />
-
-        </android.support.design.widget.TextInputLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content">
+            android:id="@+id/sectionrecieveradress"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:padding="10dp">
 
+            <TextView
+                android:id="@+id/section1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="1-Reciever Adress"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <android.support.design.widget.TextInputLayout
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat"
                 android:orientation="vertical"
-                android:layout_weight="1">
+                app:hintTextAppearance="@style/TextAppearance.AppCompat">
 
                 <EditText
 
-                    android:id="@+id/sendercity"
-                    android:layout_width="fill_parent"
+                    android:id="@+id/str"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="City"
+                    android:hint="Hause and HauseNr"
+                    android:imeActionLabel="str"
+                    android:imeOptions="actionUnspecified"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:singleLine="true"
-                    />
+                    android:singleLine="true" />
 
+            </android.support.design.widget.TextInputLayout>
+
+
+            <LinearLayout
+                android:id="@+id/block"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                    <EditText
+
+                        android:id="@+id/city"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="City"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                    <EditText
+
+                        android:id="@+id/zip"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Zip"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/blockbtn1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="Continue" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sectionhide2"
+            android:layout_width="match_parent"
+            android:layout_height="150px"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:text="2-Reciever Infos"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/sectionrecieverinfos"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/section2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="2-Reciever Infos"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                <EditText
+                    android:id="@+id/name"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Name"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                app:hintTextAppearance="@style/TextAppearance.AppCompat"
-                android:orientation="horizontal"
-                android:layout_weight="1">
+                app:hintTextAppearance="@style/TextAppearance.AppCompat">
 
                 <EditText
-
-                    android:id="@+id/senderzip"
+                    android:id="@+id/email"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Zip"
+                    android:hint="Email"
                     android:inputType="text"
                     android:maxLines="1"
-                    android:singleLine="true"
-                    />
-
+                    android:singleLine="true" />
             </android.support.design.widget.TextInputLayout>
 
 
-        </LinearLayout>
-        </LinearLayout>
-    <Button
-        android:id="@+id/confirmbtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Confirm"
-        android:layout_gravity="center"
-        android:paddingTop="10dp" />
-</LinearLayout>
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat">
 
-    </ScrollView>
+                <EditText
+                    android:id="@+id/mobile"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Mobile"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <Button
+                android:id="@+id/blockbtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="continue" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sectionhide3"
+            android:layout_width="match_parent"
+            android:layout_height="150px"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/border"
+                android:gravity="center"
+                android:text="3-Sender Adress"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/sectionsenderadress"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            android:visibility="gone">
+
+
+            <TextView
+                android:id="@+id/section3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingTop="15dp"
+                android:text="3-Sender Infos"
+                android:textAppearance="?android:attr/textAppearanceLarge" />
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                <EditText
+                    android:id="@+id/senderstr"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Hause and HauseNr"
+                    android:imeActionLabel="str"
+                    android:imeOptions="actionUnspecified"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:singleLine="true" />
+            </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                    <EditText
+                        android:id="@+id/sendercity"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="City"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal"
+                    app:hintTextAppearance="@style/TextAppearance.AppCompat">
+
+                    <EditText
+                        android:id="@+id/senderzip"
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:hint="Zip"
+                        android:inputType="text"
+                        android:maxLines="1"
+                        android:singleLine="true" />
+                </android.support.design.widget.TextInputLayout>
+
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/confirmbtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="10dp"
+            android:text="Confirm" />
+    </LinearLayout>
+
+</ScrollView>

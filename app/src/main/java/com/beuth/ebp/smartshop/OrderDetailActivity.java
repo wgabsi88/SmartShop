@@ -30,41 +30,30 @@ public class OrderDetailActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
         Bundle extras = getIntent().getExtras();
-        if(extras !=null) {
+        if (extras != null) {
             productTitle = extras.getString("titleproduct");
-           // Log.e("orderdetail", "" + id);
             productid = extras.getString("productid");
-           // Log.e("productid",""+productid);
             title = extras.getString("title");
-           // Log.e("title",""+title);
             quantity = extras.getString("quantity");
-           // Log.e("quantity",""+quantity);
             name = extras.getString("name");
-          //  Log.e("name",""+name);
             street = extras.getString("street");
-          //  Log.e("street",""+street);
             housenr = extras.getInt("housenr");
             zip = extras.getInt("zip");
-           // Log.e("zip",""+zip);
             city = extras.getString("city");
-          //  Log.e("city",""+city);
             email = extras.getString("email");
-          //  Log.e("email",""+email);
             phone = extras.getString("phone");
-          //  Log.e("phone",""+phone);
             position = extras.getInt("position");
-
         }
 
-        TextView txttitle = (TextView)findViewById(R.id.textviewproductname);
-        TextView txtquantity = (TextView)findViewById(R.id.textviewproductquantity);
-        TextView txtname = (TextView)findViewById(R.id.textviewrevievername);
-        TextView txtstreet = (TextView)findViewById(R.id.textviewrevieverstreet);
-        TextView txthousenr = (TextView)findViewById(R.id.textviewrevieverhousenr);
-        TextView txtzip = (TextView)findViewById(R.id.textviewrevieverzip);
-        TextView txtcity = (TextView)findViewById(R.id.textviewrevievercity);
-        TextView txtemail = (TextView)findViewById(R.id.textviewrevievermail);
-        TextView txtphone = (TextView)findViewById(R.id.textviewrevieverphone);
+        TextView txttitle = (TextView) findViewById(R.id.textviewproductname);
+        TextView txtquantity = (TextView) findViewById(R.id.textviewproductquantity);
+        TextView txtname = (TextView) findViewById(R.id.textviewrevievername);
+        TextView txtstreet = (TextView) findViewById(R.id.textviewrevieverstreet);
+        TextView txthousenr = (TextView) findViewById(R.id.textviewrevieverhousenr);
+        TextView txtzip = (TextView) findViewById(R.id.textviewrevieverzip);
+        TextView txtcity = (TextView) findViewById(R.id.textviewrevievercity);
+        TextView txtemail = (TextView) findViewById(R.id.textviewrevievermail);
+        TextView txtphone = (TextView) findViewById(R.id.textviewrevieverphone);
 
         detailProductButton = (Button) findViewById(R.id.detailproductbutton);
         detailProductButton.setOnClickListener(new View.OnClickListener() {
@@ -73,7 +62,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                 Intent intent = new Intent(OrderDetailActivity.this, ProductDetailActivity.class);
                 intent.putExtra("title", productTitle);
                 intent.putExtra("description", "this is a simple product description");
-                intent.putExtra("quantity", "23" );
+                intent.putExtra("quantity", "23");
                 startActivity(intent);
             }
         });
@@ -100,14 +89,12 @@ public class OrderDetailActivity extends AppCompatActivity {
         txtquantity.setText(quantity);
         txtname.setText(name);
         txtstreet.setText(street);
-        txthousenr.setText(""+housenr);
-        txtzip.setText(""+zip);
+        txthousenr.setText("" + housenr);
+        txtzip.setText("" + zip);
         txtcity.setText(city);
         txtemail.setText(email);
         txtphone.setText(phone);
     }
 
-
-
-    }
+}
 

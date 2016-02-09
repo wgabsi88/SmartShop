@@ -58,31 +58,31 @@ public class OrderConfirmActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.confirm_order);
         // UI Declartion
-         txtrstreet = (EditText) findViewById(R.id.str);
-         txtrcity = (EditText) findViewById(R.id.city);
-         txtrzip = (EditText) findViewById(R.id.zip);
-         txtname = (EditText) findViewById(R.id.name);
-         txtemail = (EditText) findViewById(R.id.email);
-         txtmobile = (EditText) findViewById(R.id.mobile);
-         txtsstr = (EditText) findViewById(R.id.senderstr);
-         txtscity = (EditText) findViewById(R.id.sendercity);
-         txtszip = (EditText) findViewById(R.id.senderzip);
-        section1 =(LinearLayout) findViewById(R.id.sectionhide1);
-        section2 =(LinearLayout) findViewById(R.id.sectionhide2);
-        section3  =(LinearLayout) findViewById(R.id.sectionhide3);
-        recieverlayoutadress =(LinearLayout) findViewById(R.id.sectionrecieveradress);
-        recieverlayoutinfos=(LinearLayout) findViewById(R.id.sectionrecieverinfos);
-        senderlayoutadress=(LinearLayout) findViewById(R.id.sectionsenderadress);
-        continue1=(Button)findViewById(R.id.blockbtn1);
-        continue2=(Button)findViewById(R.id.blockbtn2);
+        txtrstreet = (EditText) findViewById(R.id.str);
+        txtrcity = (EditText) findViewById(R.id.city);
+        txtrzip = (EditText) findViewById(R.id.zip);
+        txtname = (EditText) findViewById(R.id.name);
+        txtemail = (EditText) findViewById(R.id.email);
+        txtmobile = (EditText) findViewById(R.id.mobile);
+        txtsstr = (EditText) findViewById(R.id.senderstr);
+        txtscity = (EditText) findViewById(R.id.sendercity);
+        txtszip = (EditText) findViewById(R.id.senderzip);
+        section1 = (LinearLayout) findViewById(R.id.sectionhide1);
+        section2 = (LinearLayout) findViewById(R.id.sectionhide2);
+        section3 = (LinearLayout) findViewById(R.id.sectionhide3);
+        recieverlayoutadress = (LinearLayout) findViewById(R.id.sectionrecieveradress);
+        recieverlayoutinfos = (LinearLayout) findViewById(R.id.sectionrecieverinfos);
+        senderlayoutadress = (LinearLayout) findViewById(R.id.sectionsenderadress);
+        continue1 = (Button) findViewById(R.id.blockbtn1);
+        continue2 = (Button) findViewById(R.id.blockbtn2);
 
         //get strings from shared preferences
-         settings = getSharedPreferences(PREFS_NAME, 0);
+        settings = getSharedPreferences(PREFS_NAME, 0);
         if (settings.getString("senderstr", "") != null) {
             txtsstr.setText(settings.getString("senderstr", ""));
             txtscity.setText(settings.getString("sendercity", ""));
             txtszip.setText(settings.getString("senderzip", ""));
-        }else{
+        } else {
             section3.setVisibility(View.GONE);
             senderlayoutadress.setVisibility(View.VISIBLE);
         }
@@ -218,11 +218,11 @@ public class OrderConfirmActivity extends AppCompatActivity {
                 confirmOrderBody = null;
             }
 
-            if (confirmOrderBody != null && !confirmOrderBody.equals("null")){
+            if (confirmOrderBody != null && !confirmOrderBody.equals("null")) {
                 Toast.makeText(getApplicationContext(), "confirm order for : " + name + " with success", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(OrderConfirmActivity.this, MainActivity.class);
                 startActivity(intent);
-            }else {
+            } else {
                 Toast.makeText(getApplicationContext(), "error when confirming order", Toast.LENGTH_SHORT).show();
             }
         }

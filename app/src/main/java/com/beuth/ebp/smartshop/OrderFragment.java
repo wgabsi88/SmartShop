@@ -25,7 +25,6 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
 
         args = getArguments();
         Orders = (List<Order>) args.getSerializable("roworders");
-      //  Log.e("oRDERSfragment", "" + Orders);
         return inflater.inflate(R.layout.list_product_fragment, null, false);
     }
 
@@ -39,7 +38,6 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
             OrderItem items = new OrderItem(Orders.get(i).getTitle(), Orders.get(i).getStatus());
             rowItems.add(items);
         }
-
         adapter = new CustomOrderAdapter(getActivity(), rowItems);
         setListAdapter(adapter);
         getListView().setOnItemClickListener(this);
@@ -48,21 +46,21 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-        Intent inent = new Intent(getActivity(), OrderDetailActivity.class);
+        Intent intent = new Intent(getActivity(), OrderDetailActivity.class);
 
-        inent.putExtra("titleproduct", Orders.get(position).getOrderid());
-        inent.putExtra("idproduct", Orders.get(position).getProductid());
-        inent.putExtra("title", Orders.get(position).getTitle());
-        inent.putExtra("quantity", Orders.get(position).getQuantity());
-        inent.putExtra("name", Orders.get(position).getName());
-        inent.putExtra("street", Orders.get(position).getStreet());
-        inent.putExtra("housenr", Orders.get(position).getHousenr());
-        inent.putExtra("zip", Orders.get(position).getZip());
-        inent.putExtra("city", Orders.get(position).getCity());
-        inent.putExtra("email", Orders.get(position).getEmail());
-        inent.putExtra("phone", Orders.get(position).getPhone());
-        inent.putExtra("position", position);
-        Log.e("postion",""+position);
-        getActivity().startActivity(inent);
+        intent.putExtra("titleproduct", Orders.get(position).getOrderid());
+        intent.putExtra("idproduct", Orders.get(position).getProductid());
+        intent.putExtra("title", Orders.get(position).getTitle());
+        intent.putExtra("quantity", Orders.get(position).getQuantity());
+        intent.putExtra("name", Orders.get(position).getName());
+        intent.putExtra("street", Orders.get(position).getStreet());
+        intent.putExtra("housenr", Orders.get(position).getHousenr());
+        intent.putExtra("zip", Orders.get(position).getZip());
+        intent.putExtra("city", Orders.get(position).getCity());
+        intent.putExtra("email", Orders.get(position).getEmail());
+        intent.putExtra("phone", Orders.get(position).getPhone());
+        intent.putExtra("position", position);
+        Log.e("postion", "" + position);
+        getActivity().startActivity(intent);
     }
 }

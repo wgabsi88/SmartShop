@@ -72,7 +72,6 @@ public class CustomOrderAdapter extends BaseAdapter {
         }
 
 
-
         return convertView;
     }
 }
