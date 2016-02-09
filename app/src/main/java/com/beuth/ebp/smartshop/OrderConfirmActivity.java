@@ -87,8 +87,7 @@ public class OrderConfirmActivity extends AppCompatActivity {
             senderlayoutadress.setVisibility(View.VISIBLE);
         }
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+
 
         continue1.setOnClickListener(new View.OnClickListener() {
             @Override
