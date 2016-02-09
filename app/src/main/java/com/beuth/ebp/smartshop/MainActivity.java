@@ -95,6 +95,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void showAddProductDialog() {
+        selectedTabPosition = tabLayout.getSelectedTabPosition();
+
+        tabId.setSessionId(selectedTabPosition);
         Context context = MainActivity.this;
         AlertDialog.Builder dialog = new AlertDialog.Builder(context);
         LinearLayout layout = new LinearLayout(context);
