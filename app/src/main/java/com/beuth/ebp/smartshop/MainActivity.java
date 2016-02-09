@@ -43,17 +43,20 @@ public class MainActivity extends AppCompatActivity {
     TabLayout tabLayout;
     FloatingActionButton floatingActionButton;
     List<Order> reposer;
+    private SessionId tabId;
     String token;
     String addItemResponse;
     String itemTitle;
     String itemDescitpion;
     String itemStartPrice;
+    int selectedTabPosition;
     SharedPreferences settings;
     private ListView mDrawerList;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     String[] osArray = new String[2];
     AlertDialog.Builder builder;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +69,9 @@ public class MainActivity extends AppCompatActivity {
         builder = new AlertDialog.Builder(this);
         settings = getSharedPreferences(PREFS_NAME, 0);
         token = settings.getString("userToken", "");
+
+        tabId = SessionId.getInstance();
+
         Log.e("token on create ", token);
 
         addDrawerItems();
@@ -142,6 +148,7 @@ public class MainActivity extends AppCompatActivity {
         };
     }
 
+
     public void closeApp() {
         Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
@@ -170,11 +177,30 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onResume() {
-        super.onResume();  // Always call the superclass method first
+        super.onResume();
+         // Always call the superclass method first
         getListTask = new ListReposTask();
         getListTask.execute();
         getOrderTask = new OrderTask();
         getOrderTask.execute();
+
+    }
+    @Override
+    public void onPause() {
+        super.onPause();
+        selectedTabPosition = tabLayout.getSelectedTabPosition();
+
+        tabId.setSessionId(selectedTabPosition);
+
+        Log.e("selectedtab",""+selectedTabPosition);
+
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.e("start", "" + selectedTabPosition);
+selectLastSelectedTab();
     }
 
     class ListReposTask extends AsyncTask<String, Void, List<Item>> {
@@ -231,6 +257,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onTabSelected(TabLayout.Tab tab) {
                         viewPager.setCurrentItem(tab.getPosition());
+
                     }
 
                     @Override
@@ -242,7 +269,13 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 progressDialog.dismiss();
+              int  selected = tabId.getSessionId();
+                TabLayout.Tab tab = tabLayout.getTabAt(selected);
+                tab.select();
+                Log.e("selectedtab", "" + selected);
+
             }
+
         }
     }
 
@@ -280,7 +313,9 @@ public class MainActivity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
         }
+
     }
 
     class AddProductTask extends AsyncTask<String, Void, com.beuth.ebp.smartshop.Response> {
@@ -443,5 +478,12 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void selectLastSelectedTab() {
+        if (selectedTabPosition >= 0) {
+            TabLayout.Tab selectedTab = tabLayout.getTabAt(selectedTabPosition);
+            selectedTab.select();
+        }
     }
 }
