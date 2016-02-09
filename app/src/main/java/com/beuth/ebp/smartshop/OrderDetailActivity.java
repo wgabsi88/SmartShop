@@ -14,6 +14,7 @@ public class OrderDetailActivity extends AppCompatActivity {
     String quantity;
     String name;
     String street;
+    String status;
     int housenr;
     int zip;
     int position;
@@ -43,6 +44,7 @@ public class OrderDetailActivity extends AppCompatActivity {
             email = extras.getString("email");
             phone = extras.getString("phone");
             position = extras.getInt("position");
+            status = extras.getString("status");
         }
 
         TextView txttitle = (TextView) findViewById(R.id.textviewproductname);
@@ -68,6 +70,11 @@ public class OrderDetailActivity extends AppCompatActivity {
         });
 
         confirmButton = (Button) findViewById(R.id.confirmbtn);
+        if(status.equals("done")){
+
+            confirmButton.setVisibility(View.GONE);
+
+        }
         confirmButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

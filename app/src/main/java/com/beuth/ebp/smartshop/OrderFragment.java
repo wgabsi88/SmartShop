@@ -59,6 +59,7 @@ public class OrderFragment extends ListFragment implements AdapterView.OnItemCli
         intent.putExtra("city", Orders.get(position).getCity());
         intent.putExtra("email", Orders.get(position).getEmail());
         intent.putExtra("phone", Orders.get(position).getPhone());
+        intent.putExtra("status", Orders.get(position).getStatus());
         intent.putExtra("position", position);
         Log.e("postion", "" + position);
         getActivity().startActivity(intent);
